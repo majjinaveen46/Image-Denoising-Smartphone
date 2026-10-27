@@ -9,6 +9,37 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
 from docx.oxml import OxmlElement, parse_xml
 from docx.oxml.ns import nsdecls, qn
+from docx.opc.constants import RELATIONSHIP_TYPE
+from xml.sax.saxutils import escape
+
+def add_ref_with_link(doc, num, text, url):
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(3.0)
+    p.paragraph_format.line_spacing = 1.10
+    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    
+    r_num = p.add_run(f"[{num}] ")
+    r_num.font.name = "Times New Roman"
+    r_num.font.size = Pt(9.5)
+    r_num.bold = True
+    r_num.font.color.rgb = RGBColor(0, 98, 155)
+    
+    r_text = p.add_run(f"{text} ")
+    r_text.font.name = "Times New Roman"
+    r_text.font.size = Pt(9.5)
+    
+    if url:
+        part = p.part
+        r_id = part.relate_to(url, RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
+        hyperlink = parse_xml(f'<w:hyperlink xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" r:id="{r_id}" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"/>')
+        new_run = parse_xml('<w:r xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>')
+        new_run_text = parse_xml(f'<w:t xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">{escape(url)}</w:t>')
+        new_run.append(new_run_text)
+        rPr = parse_xml('<w:rPr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="19"/><w:color w:val="0066CC"/><w:u w:val="single"/></w:rPr>')
+        new_run.append(rPr)
+        hyperlink.append(new_run)
+        p._p.append(hyperlink)
+    return p
 
 def set_cell_background(cell, fill_hex):
     tcPr = cell._tc.get_or_add_tcPr()
@@ -425,6 +456,35 @@ def create_word_document(docx_path: str):
 
     add_heading_1("VIII. CONCLUSION")
     add_body("We presented NeuroClean, a deep learning framework and production web application for smartphone image denoising. Combining a multi-scale U-Net branch with a 10-layer residual DnCNN branch and a 1×1 fusion projection layer, NeuroClean resolves both macro-luminance splotches and micro-pixel grain. The 2D Hann-window overlapping cosine tiling engine eliminates boundary seams while supporting arbitrary dimensions. Evaluated on paired real-world smartphone photographs, NeuroClean achieves 28.60+ dB PSNR and 0.8920+ SSIM, significantly outperforming classical and deep learning baselines (p < 0.001).")
+
+    # References
+    add_heading_1("REFERENCES")
+    refs_data = [
+        (1, "A. Dudhane, S. W. Zamir, S. Khan, and F. S. Khan, \"Burst image restoration and enhancement,\" in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR), 2022.", "https://arxiv.org/abs/2110.03680"),
+        (2, "R. Flepp, A. Ignatov, R. Timofte, and L. Van Gool, \"Real-world mobile image denoising dataset with efficient baselines,\" in Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR), pp. 2596–2606, 2024.", "https://paperswithcode.com/paper/real-world-mobile-image-denoising-dataset"),
+        (3, "S. Guo, \"Toward effective image restoration from raw domain,\" Ph.D. Dissertation, Dept. Comput., Hong Kong Polytech. Univ., Hong Kong, 2024.", "https://theses.lib.polyu.edu.hk/handle/200/12922"),
+        (4, "Z. Li, H. Liu, L. Cheng, and X. Jia, \"Image denoising algorithm based on gradient domain guided filtering and NSST,\" IEEE Access, vol. 11, pp. 11923–11933, 2023.", "https://ieeexplore.ieee.org/document/10035968"),
+        (5, "L. Kumari, N. Mittal, and M. Modi, \"Comparative analysis of noise reduction filters for medical images,\" in Proc. Signal Image Process. Appl., ResearchGate, 2024.", "https://www.researchgate.net/publication/379162688_Comparative_Analysis_of_Noise_Reduction_Filters_for_Medical_Images"),
+        (6, "J. Lee, \"Development of alternative filters to enhance the quality of digital images,\" ResearchGate / Digital Imaging Systems, 2024.", "https://www.researchgate.net/publication/379091587_Development_of_Alternative_Filters_to_Enhance_the_Quality_of_Digital_Images"),
+        (7, "R. S. Jebur, M. H. Bin Mohamed Zabil, D. A. Hammood, and L. K. Cheng, \"A comprehensive review of image denoising in deep learning,\" Multimedia Tools Appl., vol. 83, pp. 45671–45712, 2023.", "https://link.springer.com/article/10.1007/s11042-023-17468-2"),
+        (8, "S. Mittal et al., \"LIVENet: A novel network for real-world low-light image denoising and enhancement,\" in Proc. IEEE/CVF Winter Conf. Appl. Comput. Vis. (WACV), pp. 2960–2970, 2024.", "https://ieeexplore.ieee.org/document/10483686"),
+        (9, "Z. Zhou, Y. Chen, and Y. Zhou, \"Deep dynamic memory augmented attentional dictionary learning for image denoising,\" IEEE Trans. Circuits Syst. Video Technol., vol. 33, no. 9, pp. 4668–4682, 2023.", "https://ieeexplore.ieee.org/abstract/document/10054440"),
+        (10, "O. Gupta, I. N. Kalapala, and K. M. Bhurchandi, \"Enhancing image denoising performance through a family of algorithms,\" in Proc. IEEE ISCON, pp. 1–6, 2023.", "https://ieeexplore.ieee.org/abstract/document/10136117"),
+        (11, "L. Zhou, D. Zhou, H. Yang, S. Yang, and L. Nie, \"Multi-scale network toward real-world image denoising,\" Int. J. Mach. Learn. Cybern., vol. 14, pp. 1109–1123, 2023.", "https://link.springer.com/article/10.1007/s13042-022-01694-5"),
+        (12, "A. Ulu, G. Yildiz, and B. Dizdaroğlu, \"MLFAN: Multilevel feature attention network with texture prior for image denoising,\" IEEE Access, vol. 11, pp. 35647–35661, 2023.", "https://ieeexplore.ieee.org/abstract/document/10092851"),
+        (13, "G. Zhang, G. Zhang, Q. Lu, Y. Bo, and X. Zhou, \"Application of improved Canny algorithm in image edge detection of transmission lines,\" in Proc. IEEE ICICML, pp. 312–316, 2024.", "https://ieeexplore.ieee.org/abstract/document/10424911"),
+        (14, "A. Ranganath, F. Santiago, O. DeGuchy, M. Singhal, and R. F. Marcia, \"Recurrent neural imaging: An evolutionary approach for mixed Poisson-Gaussian image denoising,\" in Proc. IEEE DISCOVERY, pp. 1–6, 2023.", "https://ieeexplore.ieee.org/abstract/document/10069162/"),
+        (15, "T. Direk, \"Image denoising by linear regression on non-local means algorithm,\" Signal, Image Video Process., vol. 18, pp. 3185–3194, 2024.", "https://link.springer.com/article/10.1007/s11760-024-03086-4"),
+        (16, "M. Delbracio, D. Kelly, M. S. Brown, and P. Milanfar, \"Mobile computational photography: A tour,\" Annu. Rev. Vis. Sci., vol. 7, pp. 571–604, 2021.", "https://doi.org/10.1146/annurev-vision-093020-112830"),
+        (17, "K. Zhang, W. Zuo, Y. Chen, D. Meng, and L. Zhang, \"Beyond a Gaussian denoiser: Residual learning of deep CNN for image denoising,\" IEEE Trans. Image Process., vol. 26, no. 7, pp. 3142–3155, 2017.", "https://doi.org/10.1109/TIP.2017.2662206"),
+        (18, "O. Ronneberger, P. Fischer, and T. Brox, \"U-Net: Convolutional networks for biomedical image segmentation,\" in Proc. MICCAI, LNCS, vol. 9351, pp. 234–241, 2015.", "https://doi.org/10.1007/978-3-319-24574-4_28"),
+        (19, "A. Foi, M. Trimeche, V. Katkovnik, and K. Egiazarian, \"Practical Poissonian-Gaussian noise modeling and fitting for single-image raw-data,\" IEEE Trans. Image Process., vol. 17, no. 10, pp. 1737–1754, 2008.", "https://doi.org/10.1109/TIP.2008.2001399"),
+        (20, "A. Abdelhamed, S. Lin, and M. S. Brown, \"A high-quality smartphone dataset for image denoising,\" in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR), pp. 1692–1700, 2018.", "https://doi.org/10.1109/CVPR.2018.00182"),
+        (21, "Y. Huang et al., \"Evaluation of tiling strategies for deep learning image restoration on ultra-high-resolution images,\" IEEE Access, vol. 9, pp. 84120–84131, 2021.", "https://doi.org/10.1109/ACCESS.2021.3087265"),
+        (22, "J. Immerkaer, \"Fast noise variance estimation,\" Comput. Vis. Image Underst., vol. 64, no. 2, pp. 300–302, 1996.", "https://doi.org/10.1006/cviu.1996.0060")
+    ]
+    for num, cit, url in refs_data:
+        add_ref_with_link(doc, num, cit, url)
 
     # Author Biographies
     add_heading_1("AUTHOR BIOGRAPHIES")

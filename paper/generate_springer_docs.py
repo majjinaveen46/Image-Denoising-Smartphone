@@ -8,6 +8,36 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml import OxmlElement, parse_xml
 from docx.oxml.ns import nsdecls, qn
+from docx.opc.constants import RELATIONSHIP_TYPE
+from xml.sax.saxutils import escape
+
+def add_ref_with_link(doc, num, text, url):
+    p = doc.add_paragraph()
+    p.paragraph_format.space_after = Pt(3.5)
+    p.paragraph_format.line_spacing = 1.15
+    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    
+    r_num = p.add_run(f"{num}. ")
+    r_num.font.name = "Times New Roman"
+    r_num.font.size = Pt(10)
+    r_num.bold = True
+    
+    r_text = p.add_run(f"{text} ")
+    r_text.font.name = "Times New Roman"
+    r_text.font.size = Pt(10)
+    
+    if url:
+        part = p.part
+        r_id = part.relate_to(url, RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
+        hyperlink = parse_xml(f'<w:hyperlink xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" r:id="{r_id}" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"/>')
+        new_run = parse_xml('<w:r xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>')
+        new_run_text = parse_xml(f'<w:t xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">{escape(url)}</w:t>')
+        new_run.append(new_run_text)
+        rPr = parse_xml('<w:rPr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="20"/><w:color w:val="0066CC"/><w:u w:val="single"/></w:rPr>')
+        new_run.append(rPr)
+        hyperlink.append(new_run)
+        p._p.append(hyperlink)
+    return p
 
 def set_cell_background(cell, fill_hex):
     tcPr = cell._tc.get_or_add_tcPr()
@@ -387,39 +417,33 @@ def generate_springer_word_manuscript(docx_path: str):
 
     # References
     add_h1("References")
-    refs = [
-        "1. Delbracio, M., Kelly, D., Brown, M.S., Milanfar, P.: Mobile computational photography: A tour. Annual Review of Vision Science 7, 571–604 (2021). https://doi.org/10.1146/annurev-vision-093020-112830",
-        "2. Barron, J.T., Mildenhall, B., Verbin, D., Srinivasan, P.P., Hedman, P.: Mip-NeRF 360: Unbounded anti-aliased neural radiance fields. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), pp. 5470–5479 (2022). https://doi.org/10.1109/CVPR52688.2022.00539",
-        "3. Hasinoff, S.W., et al.: Burst photography for high dynamic range and low-light imaging on mobile cameras. ACM Transactions on Graphics 35(6), 192:1–192:12 (2016). https://doi.org/10.1145/2980179.2980254",
-        "4. Milanfar, P.: A tour of modern image filtering: New insights and methods, both practical and theoretical. IEEE Signal Processing Magazine 30(1), 106–128 (2013). https://doi.org/10.1109/MSP.2011.2179329",
-        "5. Healey, G.E., Kondepudy, R.: Radiometric CCD camera calibration and noise estimation. IEEE Transactions on Pattern Analysis and Machine Intelligence 16(3), 267–276 (1994). https://doi.org/10.1109/34.276126",
-        "6. Ramanath, R., Snyder, W.E., Bilbro, G.L., Sander, W.A.: Demosaicking: Methods and evaluations. IEEE Transactions on Image Processing 11(3), 245–255 (2002). https://doi.org/10.1109/83.988956",
-        "7. Tomasi, C., Manduchi, R.: Bilateral filtering for gray and color images. In: Proceedings of the IEEE International Conference on Computer Vision (ICCV), pp. 839–846 (1998). https://doi.org/10.1109/ICCV.1998.710815",
-        "8. Buades, A., Coll, B., Morel, J.-M.: A non-local algorithm for image denoising. In: Proceedings of the IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR), vol. 2, pp. 60–65 (2005). https://doi.org/10.1109/CVPR.2005.38",
-        "9. Dabov, K., Foi, A., Katkovnik, V., Egiazarian, K.: Image denoising by sparse 3-D transform-domain collaborative filtering. IEEE Transactions on Image Processing 16(8), 2080–2095 (2007). https://doi.org/10.1109/TIP.2007.901238",
-        "10. Foi, A., Trimeche, M., Katkovnik, V., Egiazarian, K.: Practical Poissonian-Gaussian noise modeling and fitting for single-image raw-data. IEEE Transactions on Image Processing 17(10), 1737–1754 (2008). https://doi.org/10.1109/TIP.2008.2001399",
-        "11. Zhang, K., Zuo, W., Chen, Y., Meng, D., Zhang, L.: Beyond a Gaussian denoiser: Residual learning of deep CNN for image denoising. IEEE Transactions on Image Processing 26(7), 3142–3155 (2017). https://doi.org/10.1109/TIP.2017.2662206",
-        "12. Ronneberger, O., Fischer, P., Brox, T.: U-Net: Convolutional networks for biomedical image segmentation. In: Medical Image Computing and Computer-Assisted Intervention (MICCAI), LNCS, vol. 9351, pp. 234–241. Springer, Cham (2015). https://doi.org/10.1007/978-3-319-24574-4_28",
-        "13. Isola, P., Zhu, J.-Y., Zhou, T., Efros, A.A.: Image-to-image translation with conditional adversarial networks. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 1125–1134 (2017). https://doi.org/10.1109/CVPR.2017.632",
-        "14. Abdelhamed, A., Lin, S., Brown, M.S.: A high-quality smartphone dataset for image denoising. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 1692–1700 (2018). https://doi.org/10.1109/CVPR.2018.00182",
-        "15. Plotz, T., Roth, S.: Benchmarking denoising algorithms with real photographs. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 1586–1595 (2017). https://doi.org/10.1109/CVPR.2017.173",
-        "16. Lebrun, M., Colom, M., Buades, A., Morel, J.-M.: Secrets of image denoising cuisine. Acta Numerica 21, 511–676 (2012). https://doi.org/10.1017/S0962492912000041",
-        "17. Zhang, K., Zuo, W., Zhang, L.: FFDNet: Toward a fast and flexible discriminative CNN denoiser. IEEE Transactions on Image Processing 27(9), 4608–4622 (2018). https://doi.org/10.1109/TIP.2018.2839891",
-        "18. Guo, S., Yan, Z., Zhang, K., Zuo, W., Zhang, L.: Toward convolutional blind denoising of real photographs. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 1712–1722 (2019). https://doi.org/10.1109/CVPR.2019.00181",
-        "19. Oktay, O., et al.: Attention U-Net: Learning where to look for the pancreas. In: Proceedings of Medical Imaging with Deep Learning (MIDL), pp. 1–10 (2018)",
-        "20. Zhang, Z., Liu, Q., Wang, Y.: Road extraction by deep residual U-Net. IEEE Geoscience and Remote Sensing Letters 15(5), 749–753 (2018). https://doi.org/10.1109/LGRS.2018.2802944",
-        "21. Huang, Y., et al.: Evaluation of tiling strategies for deep learning image restoration on ultra-high-resolution images. IEEE Access 9, 84120–84131 (2021). https://doi.org/10.1109/ACCESS.2021.3087265",
-        "22. Szeliski, R.: Computer Vision: Algorithms and Applications, 2nd edn. Springer, Cham (2022). https://doi.org/10.1007/978-3-030-34372-9",
-        "23. Shelhamer, E., Long, J., Darrell, T.: Fully convolutional networks for semantic segmentation. IEEE Transactions on Pattern Analysis and Machine Intelligence 39(4), 640–651 (2017). https://doi.org/10.1109/TPAMI.2016.2572683",
-        "24. Ramirez, S.: FastAPI: Modern, fast web framework for building APIs with Python. PyCon US (2020)",
-        "25. Anwar, S., Barnes, N.: Real image denoising with feature attention. In: Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), pp. 3155–3164 (2019). https://doi.org/10.1109/ICCV.2019.00325",
-        "26. Zamir, S.W., Arora, A., Khan, S., Hayat, M., Khan, F.S., Yang, M.-H.: Restormer: Efficient transformer for high-resolution image restoration. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), pp. 5728–5739 (2022). https://doi.org/10.1109/CVPR52688.2022.00564",
-        "27. Immerkaer, J.: Fast noise variance estimation. Computer Vision and Image Understanding 64(2), 300–302 (1996). https://doi.org/10.1006/cviu.1996.0060",
-        "28. Demšar, J.: Statistical comparisons of classifiers over multiple data sets. Journal of Machine Learning Research 7, 1–30 (2006)",
-        "29. Zhang, R., Isola, P., Efros, A.A., Shechtman, E., Wang, O.: The unreasonable effectiveness of deep features as a perceptual metric. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 586–595 (2018). https://doi.org/10.1109/CVPR.2018.00068"
+    refs_data = [
+        (1, "Dudhane, A., Zamir, S.W., Khan, S., Khan, F.S.: Burst image restoration and enhancement. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2022)", "https://arxiv.org/abs/2110.03680"),
+        (2, "Flepp, R., Ignatov, A., Timofte, R., Van Gool, L.: Real-world mobile image denoising dataset with efficient baselines. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), pp. 2596–2606 (2024)", "https://paperswithcode.com/paper/real-world-mobile-image-denoising-dataset"),
+        (3, "Guo, S.: Toward effective image restoration from raw domain. Ph.D. Dissertation, Department of Computing, The Hong Kong Polytechnic University, Hong Kong (2024)", "https://theses.lib.polyu.edu.hk/handle/200/12922"),
+        (4, "Li, Z., Liu, H., Cheng, L., Jia, X.: Image denoising algorithm based on gradient domain guided filtering and NSST. IEEE Access 11, 11923–11933 (2023). https://doi.org/10.1109/ACCESS.2023.3242050", "https://ieeexplore.ieee.org/document/10035968"),
+        (5, "Kumari, L., Mittal, N., Modi, M.: Comparative analysis of noise reduction filters for medical images. In: Proceedings of Signal & Image Processing Applications, ResearchGate (2024)", "https://www.researchgate.net/publication/379162688_Comparative_Analysis_of_Noise_Reduction_Filters_for_Medical_Images"),
+        (6, "Lee, J.: Development of alternative filters to enhance the quality of digital images. ResearchGate / Digital Imaging Systems (2024)", "https://www.researchgate.net/publication/379091587_Development_of_Alternative_Filters_to_Enhance_the_Quality_of_Digital_Images"),
+        (7, "Jebur, R.S., Bin Mohamed Zabil, M.H., Hammood, D.A., Cheng, L.K.: A comprehensive review of image denoising in deep learning. Multimedia Tools and Applications 83, 45671–45712 (2023). https://doi.org/10.1007/s11042-023-17468-2", "https://link.springer.com/article/10.1007/s11042-023-17468-2"),
+        (8, "Mittal, S., et al.: LIVENet: A novel network for real-world low-light image denoising and enhancement. In: Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), pp. 2960–2970 (2024). https://doi.org/10.1109/WACV57701.2024.00295", "https://ieeexplore.ieee.org/document/10483686"),
+        (9, "Zhou, Z., Chen, Y., Zhou, Y.: Deep dynamic memory augmented attentional dictionary learning for image denoising. IEEE Transactions on Circuits and Systems for Video Technology 33(9), 4668–4682 (2023). https://doi.org/10.1109/TCSVT.2023.3240212", "https://ieeexplore.ieee.org/abstract/document/10054440"),
+        (10, "Gupta, O., Kalapala, I.N., Bhurchandi, K.M.: Enhancing image denoising performance through a family of algorithms. In: 6th International Conference on Information Systems and Computer Networks (ISCON), IEEE, pp. 1–6 (2023). https://doi.org/10.1109/ISCON57788.2023.10136117", "https://ieeexplore.ieee.org/abstract/document/10136117"),
+        (11, "Zhou, L., Zhou, D., Yang, H., Yang, S., Nie, L.: Multi-scale network toward real-world image denoising. International Journal of Machine Learning and Cybernetics 14, 1109–1123 (2023). https://doi.org/10.1007/s13042-022-01694-5", "https://link.springer.com/article/10.1007/s13042-022-01694-5"),
+        (12, "Ulu, A., Yildiz, G., Dizdaroğlu, B.: MLFAN: Multilevel feature attention network with texture prior for image denoising. IEEE Access 11, 35647–35661 (2023). https://doi.org/10.1109/ACCESS.2023.3262657", "https://ieeexplore.ieee.org/abstract/document/10092851"),
+        (13, "Zhang, G., Zhang, G., Lu, Q., Bo, Y., Zhou, X.: Application of improved Canny algorithm in image edge detection of transmission lines. In: 2023 International Conference on Image Processing, Computer Vision and Machine Learning (ICICML), IEEE, pp. 312–316 (2024). https://doi.org/10.1109/ICICML60634.2024.10424911", "https://ieeexplore.ieee.org/abstract/document/10424911"),
+        (14, "Ranganath, A., Santiago, F., DeGuchy, O., Singhal, M., Marcia, R.F.: Recurrent neural imaging: An evolutionary approach for mixed Poisson-Gaussian image denoising. In: 2023 IEEE International Conference on Image Processing and Machine Vision (DISCOVERY), IEEE, pp. 1–6 (2023). https://doi.org/10.1109/DISCOVERY56942.2023.10069162", "https://ieeexplore.ieee.org/abstract/document/10069162/"),
+        (15, "Direk, T.: Image denoising by linear regression on non-local means algorithm. Signal, Image and Video Processing 18, 3185–3194 (2024). https://doi.org/10.1007/s11760-024-03086-4", "https://link.springer.com/article/10.1007/s11760-024-03086-4"),
+        (16, "Delbracio, M., Kelly, D., Brown, M.S., Milanfar, P.: Mobile computational photography: A tour. Annual Review of Vision Science 7, 571–604 (2021). https://doi.org/10.1146/annurev-vision-093020-112830", "https://doi.org/10.1146/annurev-vision-093020-112830"),
+        (17, "Zhang, K., Zuo, W., Chen, Y., Meng, D., Zhang, L.: Beyond a Gaussian denoiser: Residual learning of deep CNN for image denoising. IEEE Transactions on Image Processing 26(7), 3142–3155 (2017). https://doi.org/10.1109/TIP.2017.2662206", "https://doi.org/10.1109/TIP.2017.2662206"),
+        (18, "Ronneberger, O., Fischer, P., Brox, T.: U-Net: Convolutional networks for biomedical image segmentation. In: Medical Image Computing and Computer-Assisted Intervention (MICCAI), LNCS, vol. 9351, pp. 234–241. Springer, Cham (2015). https://doi.org/10.1007/978-3-319-24574-4_28", "https://doi.org/10.1007/978-3-319-24574-4_28"),
+        (19, "Foi, A., Trimeche, M., Katkovnik, V., Egiazarian, K.: Practical Poissonian-Gaussian noise modeling and fitting for single-image raw-data. IEEE Transactions on Image Processing 17(10), 1737–1754 (2008). https://doi.org/10.1109/TIP.2008.2001399", "https://doi.org/10.1109/TIP.2008.2001399"),
+        (20, "Abdelhamed, A., Lin, S., Brown, M.S.: A high-quality smartphone dataset for image denoising. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 1692–1700 (2018). https://doi.org/10.1109/CVPR.2018.00182", "https://doi.org/10.1109/CVPR.2018.00182"),
+        (21, "Huang, Y., et al.: Evaluation of tiling strategies for deep learning image restoration on ultra-high-resolution images. IEEE Access 9, 84120–84131 (2021). https://doi.org/10.1109/ACCESS.2021.3087265", "https://doi.org/10.1109/ACCESS.2021.3087265"),
+        (22, "Immerkaer, J.: Fast noise variance estimation. Computer Vision and Image Understanding 64(2), 300–302 (1996). https://doi.org/10.1006/cviu.1996.0060", "https://doi.org/10.1006/cviu.1996.0060"),
+        (23, "Demšar, J.: Statistical comparisons of classifiers over multiple data sets. Journal of Machine Learning Research 7, 1–30 (2006)", "")
     ]
-    for ref in refs:
-        add_p(ref, space_after=3)
+    for num, cit, url in refs_data:
+        add_ref_with_link(doc, num, cit, url)
 
     doc.save(docx_path)
     print(f"[SUCCESS] Saved Springer Nature Word Manuscript (.docx) to: {docx_path}")

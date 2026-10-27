@@ -713,24 +713,76 @@ def build_presentation():
     # SLIDE 14: References
     # -------------------------------------------------------------
     s14 = prs.slides[13]
-    for shape in s14.shapes:
-        if shape.name in ["Rectangle 3", "Content Placeholder 2"] and shape.has_text_frame:
-            tf = shape.text_frame
-            tf.clear()
+    # Remove existing text frames or placeholders on Slide 14 to provide clean 2-column layout
+    shapes_to_remove = [s for s in s14.shapes if s.name in ["Rectangle 3", "Content Placeholder 2"]]
+    for shp in shapes_to_remove:
+        # Clear text frame content
+        if shp.has_text_frame:
+            shp.text_frame.clear()
+            shp.width = Inches(0.1)
+            shp.height = Inches(0.1)
+            shp.left = Inches(14.0) # Move out of view
+
+    refs_data = [
+        (1, "A. Dudhane, S. W. Zamir, S. Khan, and F. S. Khan, \"Burst Image Restoration and Enhancement,\" in Proc. CVPR / arXiv:2110.03680, 2022.", "https://arxiv.org/abs/2110.03680"),
+        (2, "R. Flepp, A. Ignatov, R. Timofte, and L. Van Gool, \"Real-World Mobile Image Denoising Dataset with Efficient Baselines,\" in Proc. IEEE/CVF CVPR, pp. 2596–2606, 2024.", "https://paperswithcode.com/paper/real-world-mobile-image-denoising-dataset"),
+        (3, "S. Guo, \"Toward effective image restoration from raw domain,\" Ph.D. Dissertation, Dept. of Computing, The Hong Kong Polytechnic University, 2024.", "https://theses.lib.polyu.edu.hk/handle/200/12922"),
+        (4, "Z. Li, H. Liu, L. Cheng, and X. Jia, \"Image Denoising Algorithm Based on Gradient Domain Guided Filtering and NSST,\" IEEE Access, vol. 11, pp. 11923–11933, 2023.", "https://ieeexplore.ieee.org/document/10035968"),
+        (5, "L. Kumari, N. Mittal, and M. Modi, \"Comparative Analysis of Noise Reduction Filters for Medical Images,\" ResearchGate / Signal & Image Processing, 2024.", "https://www.researchgate.net/publication/379162688_Comparative_Analysis_of_Noise_Reduction_Filters_for_Medical_Images"),
+        (6, "J. Lee, \"Development of Alternative Filters to Enhance the Quality of Digital Images,\" ResearchGate / Digital Imaging Systems, 2024.", "https://www.researchgate.net/publication/379091587_Development_of_Alternative_Filters_to_Enhance_the_Quality_of_Digital_Images"),
+        (7, "R. S. Jebur, M. H. Bin Mohamed Zabil, D. A. Hammood, and L. K. Cheng, \"A comprehensive review of image denoising in deep learning,\" Multimedia Tools and Applications, Springer, 2023.", "https://link.springer.com/article/10.1007/s11042-023-17468-2"),
+        (8, "S. Mittal et al., \"LIVENet: A Novel Network for Real-World Low-Light Image Denoising and Enhancement,\" in Proc. IEEE/CVF WACV, pp. 2960–2970, 2024.", "https://ieeexplore.ieee.org/document/10483686"),
+        (9, "Z. Zhou, Y. Chen, and Y. Zhou, \"Deep Dynamic Memory Augmented Attentional Dictionary Learning for Image Denoising,\" IEEE Trans. Circuits Syst. Video Technol., vol. 33, no. 9, pp. 4668–4682, 2023.", "https://ieeexplore.ieee.org/abstract/document/10054440"),
+        (10, "O. Gupta, I. N. Kalapala, and K. M. Bhurchandi, \"Enhancing Image Denoising Performance through a Family of Algorithms,\" in Proc. IEEE ISCON, pp. 1–6, 2023.", "https://ieeexplore.ieee.org/abstract/document/10136117"),
+        (11, "L. Zhou, D. Zhou, H. Yang, S. Yang, and L. Nie, \"Multi-scale network toward real-world image denoising,\" Int. J. Machine Learning & Cybernetics, Springer, vol. 14, pp. 1109–1123, 2023.", "https://link.springer.com/article/10.1007/s13042-022-01694-5"),
+        (12, "A. Ulu, G. Yildiz, and B. Dizdaroğlu, \"MLFAN: Multilevel Feature Attention Network With Texture Prior for Image Denoising,\" IEEE Access, vol. 11, pp. 35647–35661, 2023.", "https://ieeexplore.ieee.org/abstract/document/10092851"),
+        (13, "G. Zhang, G. Zhang, Q. Lu, Y. Bo, and X. Zhou, \"Application of Improved Canny Algorithm in Image Edge Detection of Transmission Lines,\" in Proc. IEEE ICICML, pp. 312–316, 2024.", "https://ieeexplore.ieee.org/abstract/document/10424911"),
+        (14, "A. Ranganath, F. Santiago, O. DeGuchy, M. Singhal, and R. F. Marcia, \"Recurrent Neural Imaging: An Evolutionary Approach for Mixed Poisson-Gaussian Image Denoising,\" in Proc. IEEE DISCOVERY, pp. 1–6, 2023.", "https://ieeexplore.ieee.org/abstract/document/10069162/"),
+        (15, "T. Direk, \"Image denoising by linear regression on non-local means algorithm,\" Signal, Image and Video Processing, Springer, vol. 18, pp. 3185–3194, 2024.", "https://link.springer.com/article/10.1007/s11760-024-03086-4")
+    ]
+
+    col1_refs = refs_data[:8]
+    col2_refs = refs_data[8:]
+
+    def populate_ref_box(left, top, width, height, refs_slice):
+        box = s14.shapes.add_textbox(left, top, width, height)
+        tf = box.text_frame
+        tf.word_wrap = True
+        tf.margin_left = Inches(0.05)
+        tf.margin_right = Inches(0.05)
+        tf.margin_top = Inches(0.05)
+        tf.margin_bottom = Inches(0.05)
+        for idx, (num, cit, url) in enumerate(refs_slice):
+            p = tf.paragraphs[0] if idx == 0 else tf.add_paragraph()
+            p.space_after = Pt(4)
+            p.line_spacing = 1.05
             
-            refs = [
-                "[1] M. Delbracio, D. Kelly, M. S. Brown, and P. Milanfar, \"Mobile computational photography: A tour,\" Annual Review of Vision Science, vol. 7, pp. 571–604, 2021. https://doi.org/10.1146/annurev-vision-093020-112830",
-                "[2] K. Zhang, W. Zuo, Y. Chen, D. Meng, and L. Zhang, \"Beyond a Gaussian denoiser: Residual learning of deep CNN for image denoising,\" IEEE Transactions on Image Processing, vol. 26, no. 7, pp. 3142–3155, 2017. https://doi.org/10.1109/TIP.2017.2662206",
-                "[3] O. Ronneberger, P. Fischer, and T. Brox, \"U-Net: Convolutional networks for biomedical image segmentation,\" in Proc. MICCAI, LNCS, vol. 9351, pp. 234–241, Springer, Cham, 2015. https://doi.org/10.1007/978-3-319-24574-4_28",
-                "[4] A. Abdelhamed, S. Lin, and M. S. Brown, \"A high-quality smartphone dataset for image denoising,\" in Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR), pp. 1692–1700, 2018. https://doi.org/10.1109/CVPR.2018.00182",
-                "[5] Y. Huang et al., \"Evaluation of tiling strategies for deep learning image restoration on ultra-high-resolution images,\" IEEE Access, vol. 9, pp. 84120–84131, 2021. https://doi.org/10.1109/ACCESS.2021.3087265"
-            ]
-            for idx, r in enumerate(refs):
-                p = tf.paragraphs[0] if idx == 0 else tf.add_paragraph()
-                p.text = r + "\n"
-                p.font.name = "Arial"
-                p.font.size = Pt(10)
-                p.font.color.rgb = RGBColor(40, 40, 40)
+            # Number & Citation
+            r_num = p.add_run()
+            r_num.text = f"[{num}] "
+            r_num.font.name = "Arial"
+            r_num.font.size = Pt(8.5)
+            r_num.font.bold = True
+            r_num.font.color.rgb = RGBColor(0, 98, 155)
+
+            r_cit = p.add_run()
+            r_cit.text = f"{cit} "
+            r_cit.font.name = "Arial"
+            r_cit.font.size = Pt(8.0)
+            r_cit.font.color.rgb = RGBColor(40, 40, 40)
+
+            # Hyperlink
+            r_link = p.add_run()
+            r_link.text = "[Link]"
+            r_link.font.name = "Arial"
+            r_link.font.size = Pt(8.0)
+            r_link.font.bold = True
+            r_link.font.underline = True
+            r_link.font.color.rgb = RGBColor(0, 102, 204)
+            r_link.hyperlink.address = url
+
+    populate_ref_box(Inches(0.6), Inches(1.45), Inches(5.8), Inches(5.3), col1_refs)
+    populate_ref_box(Inches(6.7), Inches(1.45), Inches(5.8), Inches(5.3), col2_refs)
 
     prs.save(output_path)
     print(f"[SUCCESS] Presentation generated successfully at: {output_path}")
