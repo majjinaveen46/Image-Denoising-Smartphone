@@ -2,6 +2,11 @@
 
 An academic deep learning web application for restoring degraded, low-light, and high-ISO smartphone photographs using a **Hybrid U-Net–DnCNN** neural architecture with full-resolution Hann-window tiling.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Cloudflare%20Hosted-blue?style=for-the-badge&logo=cloudflare)](https://stick-tuning-oral-fitted.trycloudflare.com)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/majjinaveen46/Image-Denoising-Smartphone)
+
+🌐 **Live Public App URL:** [https://stick-tuning-oral-fitted.trycloudflare.com](https://stick-tuning-oral-fitted.trycloudflare.com)
+
 ---
 
 ## 🌟 Overview & Key Capabilities
