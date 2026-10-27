@@ -1,11 +1,60 @@
 @import "tailwindcss";
 
 @layer base {
-  body {
-    background-color: #020617;
-    color: #f8fafc;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  :root {
+    --bg-primary: #f8fafc;
+    --text-primary: #0f172a;
+    --border-glass: rgba(148, 163, 184, 0.25);
+    --panel-glass: rgba(255, 255, 255, 0.72);
   }
+
+  .dark {
+    --bg-primary: #020617;
+    --text-primary: #f8fafc;
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --panel-glass: rgba(15, 23, 42, 0.75);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  background: var(--panel-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 3D Perspective and Holographic Tilt */
+.perspective-container {
+  perspective: 1200px;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.tilt-card:hover {
+  transform: translateY(-4px) rotateX(2deg) rotateY(-2deg);
 }
 
 /* Custom smooth slider styling */
@@ -25,13 +74,13 @@
   background: #ffffff;
   border: 3px solid #0284c7;
   border-radius: 50%;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   cursor: ew-resize;
-  transition: transform 0.1s ease;
+  transition: transform 0.15s ease;
 }
 
 .slider-thumb::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
+  transform: scale(1.12);
 }
 
 .slider-thumb::-moz-range-thumb {
@@ -40,14 +89,7 @@
   background: #ffffff;
   border: 3px solid #0284c7;
   border-radius: 50%;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   cursor: ew-resize;
-  transition: transform 0.1s ease;
-}
-
-/* Glassmorphism utility */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.15s ease;
 }

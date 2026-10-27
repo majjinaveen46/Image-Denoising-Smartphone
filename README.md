@@ -33,6 +33,8 @@ Smartphone cameras feature physical hardware constraints, notably small image se
 
 - **Interactive Drag-and-Drop Studio:** Upload new, previously unseen photographs (`.jpg`, `.jpeg`, `.png`, `.webp` up to 25 MB).
 - **Aspect Ratio & Dimension Preservation:** Uses **2D Hann-window overlapping cosine tiling** to process images of any size (even 12+ megapixel smartphone captures) without distortion or tile boundary seams.
+- **Glassmorphic UI & Dark/Light Mode:** Frosted glass panels, translucent depth cards, and instantaneous theme switching with `localStorage` memory and OS theme preference detection.
+- **Interactive 3D WebGL Sensor Simulation:** Three.js-powered 3D visualization of the smartphone photodiode sensor lattice, illustrating real-time Poisson photon shot noise alongside the neural smoothing manifold with interactive cursor rotation.
 - **Before-and-After Comparison Slider:** Draggable split slider with touch and mouse support, plus a side-by-side comparative inspection toggle.
 - **Measured Inference Metrics:** Displays sub-second processing latency (`~180ms – 400ms`), estimated noise standard deviation ($\sigma$) reduction, and ground-truth PSNR/SSIM scores when available.
 - **Export Controls:** Instant downloads in lossless **PNG** or compressed **JPEG (Quality 95)**.
@@ -52,11 +54,12 @@ Image_Denoising_Project/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Navbar.tsx       # Live status indicator & navigation
-│   │   │   ├── Hero.tsx         # Academic presentation hero
+│   │   │   ├── Navbar.tsx       # Live status indicator, Dark/Light toggle & navigation
+│   │   │   ├── Hero.tsx         # Academic presentation hero with frosted glass styling
 │   │   │   ├── ImageUploader.tsx# Drag-and-drop file upload zone
 │   │   │   ├── ComparisonSlider.tsx # Interactive split slider & format exporter
 │   │   │   ├── SampleGallery.tsx# Smartphone benchmark dataset gallery
+│   │   │   ├── Sensor3DVisualizer.tsx # 3D Three.js photodiode sensor lattice simulation
 │   │   │   ├── ArchitectureSection.tsx # Theoretical U-Net + DnCNN explanations
 │   │   │   ├── BenchmarkSection.tsx    # Empirical evaluation table
 │   │   │   ├── ModelSpecsModal.tsx     # Real-time model metadata & diagnostics

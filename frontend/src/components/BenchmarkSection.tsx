@@ -46,28 +46,28 @@ export const BenchmarkSection: React.FC = () => {
   ];
 
   return (
-    <section id="benchmarks" className="py-20 border-t border-slate-800/80">
+    <section id="benchmarks" className="py-20 border-t border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-3">
+          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-3 border border-emerald-500/20 shadow-sm">
             <BarChart3 className="w-3.5 h-3.5" />
             <span>Empirical Performance Benchmarks</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Comparative Architecture Evaluation
           </h2>
-          <p className="text-sm text-slate-400 mt-2">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
             Quantitative restoration metrics measured across the smartphone test dataset using Peak Signal-to-Noise Ratio (PSNR) and Structural Similarity Index (SSIM).
           </p>
         </div>
 
         {/* Table Container */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/50 overflow-hidden shadow-xl">
+        <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800/80 glass-panel bg-white/70 dark:bg-slate-900/50 overflow-hidden shadow-xl backdrop-blur-xl">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-300">
-              <thead className="bg-slate-950/80 text-xs uppercase font-mono tracking-wider text-slate-400 border-b border-slate-800">
+            <table className="w-full text-left text-sm text-slate-700 dark:text-slate-300">
+              <thead className="bg-slate-100/80 dark:bg-slate-950/80 text-xs uppercase font-mono tracking-wider text-slate-600 dark:text-slate-400 border-b border-slate-200/80 dark:border-slate-800">
                 <tr>
                   <th scope="col" className="px-6 py-4">Architecture</th>
                   <th scope="col" className="px-6 py-4">Mean PSNR</th>
@@ -76,40 +76,40 @@ export const BenchmarkSection: React.FC = () => {
                   <th scope="col" className="px-6 py-4">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-slate-200/60 dark:divide-slate-800/60">
                 {benchmarkData.map((row, idx) => (
                   <tr
                     key={idx}
                     className={`transition-colors ${
                       row.isCurrent
-                        ? 'bg-brand-500/10 font-medium text-white'
-                        : 'hover:bg-slate-800/40'
+                        ? 'bg-brand-500/10 font-medium text-slate-900 dark:text-white'
+                        : 'hover:bg-slate-100/50 dark:hover:bg-slate-800/40'
                     }`}
                   >
                     <td className="px-6 py-4 flex items-center space-x-2">
                       {row.isCurrent && (
-                        <Award className="w-4 h-4 text-brand-400 flex-shrink-0" />
+                        <Award className="w-4 h-4 text-brand-600 dark:text-brand-400 flex-shrink-0" />
                       )}
-                      <span className={row.isCurrent ? 'font-bold text-brand-300' : 'text-slate-200'}>
+                      <span className={row.isCurrent ? 'font-bold text-brand-600 dark:text-brand-300' : 'text-slate-800 dark:text-slate-200'}>
                         {row.model}
                       </span>
                     </td>
-                    <td className="px-6 py-4 font-mono font-semibold text-emerald-400">
+                    <td className="px-6 py-4 font-mono font-semibold text-emerald-600 dark:text-emerald-400">
                       {row.psnr}
                     </td>
-                    <td className="px-6 py-4 font-mono text-sky-400">
+                    <td className="px-6 py-4 font-mono text-sky-600 dark:text-sky-400">
                       {row.ssim}
                     </td>
-                    <td className="px-6 py-4 text-slate-400 text-xs font-mono">
+                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs font-mono">
                       {row.receptive}
                     </td>
                     <td className="px-6 py-4">
                       {row.isCurrent ? (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-brand-500/20 text-brand-300 border border-brand-500/30">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-brand-500/15 text-brand-700 dark:text-brand-300 border border-brand-500/30">
                           Proposed Novel Architecture
                         </span>
                       ) : (
-                        <span className="text-slate-500 text-xs">
+                        <span className="text-slate-400 dark:text-slate-500 text-xs">
                           {idx === 0 ? 'Raw Input' : 'Comparative Model'}
                         </span>
                       )}
@@ -122,13 +122,13 @@ export const BenchmarkSection: React.FC = () => {
         </div>
 
         {/* Metric Definitions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 text-xs text-slate-400">
-          <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-            <strong className="text-slate-200 block mb-1">Peak Signal-to-Noise Ratio (PSNR):</strong>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 text-xs text-slate-600 dark:text-slate-400">
+          <div className="p-5 rounded-2xl glass-panel bg-white/60 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+            <strong className="text-slate-900 dark:text-slate-200 block mb-1 font-semibold">Peak Signal-to-Noise Ratio (PSNR):</strong>
             Higher values (in decibels dB) indicate lower Mean Squared Error (MSE) between the reconstructed and true reference image. An improvement of +2.8 to +4.0 dB represents a distinct visual noise reduction.
           </div>
-          <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-            <strong className="text-slate-200 block mb-1">Structural Similarity Index Measure (SSIM):</strong>
+          <div className="p-5 rounded-2xl glass-panel bg-white/60 dark:bg-slate-900/40 border border-slate-200/80 dark:border-slate-800 shadow-sm">
+            <strong className="text-slate-900 dark:text-slate-200 block mb-1 font-semibold">Structural Similarity Index Measure (SSIM):</strong>
             Ranging from 0 to 1.0, SSIM measures perceptual structural fidelity, luminance balance, and contrast retention, aligning more closely with human visual perception than raw Euclidean distance.
           </div>
         </div>
