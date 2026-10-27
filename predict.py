@@ -28,11 +28,11 @@ def calculate_metrics(clean_img, test_img):
 
 def get_default_model_path():
     """Finds available trained model."""
-    candidates = ["models/image_denoising_model.keras", "image_denoising_model.keras"]
+    candidates = ["models/hybrid_unet_dncnn.keras", "models/image_denoising_model.keras"]
     for path in candidates:
         if os.path.exists(path):
             return path
-    return "image_denoising_model.keras"
+    return "models/image_denoising_model.keras"
 
 
 def denoise_image(image_path, model_path=None, clean_path=None, output_path=None):
@@ -72,19 +72,16 @@ def denoise_image(image_path, model_path=None, clean_path=None, output_path=None
     if output_path is None:
         output_path = os.path.join("outputs", "denoised_output.png")
 
-    # Save output images to destination and root for compatibility
     cv2.imwrite(output_path, denoised_bgr)
-    cv2.imwrite("denoised_output.png", denoised_bgr)
 
     # Side-by-side comparison
     comparison = np.hstack((resized_noisy, denoised_bgr))
     comparison_path = os.path.join(os.path.dirname(output_path) or "outputs", "noisy_vs_denoised.png")
     cv2.imwrite(comparison_path, comparison)
-    cv2.imwrite("noisy_vs_denoised.png", comparison)
 
     print("\nPrediction Completed Successfully!")
-    print(f"  -> Denoised image saved to: {output_path} (and denoised_output.png)")
-    print(f"  -> Side-by-side saved to:   {comparison_path} (and noisy_vs_denoised.png)")
+    print(f"  -> Denoised image saved to: {output_path}")
+    print(f"  -> Side-by-side saved to:   {comparison_path}")
 
     # Check for ground truth clean image
     if clean_path is None:

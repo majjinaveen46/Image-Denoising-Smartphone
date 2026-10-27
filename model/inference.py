@@ -39,7 +39,6 @@ class DenoisingInferenceEngine:
         candidates = [
             "models/hybrid_unet_dncnn.keras",
             "models/image_denoising_model.keras",
-            "image_denoising_model.keras",
         ]
         for path in candidates:
             if os.path.exists(path):

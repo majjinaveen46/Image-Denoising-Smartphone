@@ -95,15 +95,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # Fallback if denoised image is in root
-    denoised_file = args.denoised
-    if not os.path.exists(denoised_file) and os.path.exists("denoised_output.png"):
-        denoised_file = "denoised_output.png"
-
     compare_images(
         clean_path=args.clean,
         noisy_path=args.noisy,
-        denoised_path=denoised_file,
+        denoised_path=args.denoised,
         output_plot_path=args.output,
         show=args.show
     )

@@ -141,11 +141,8 @@ def train(epochs=100, batch_size=8, validation_split=0.2, model_type="standard",
         shuffle=True
     )
 
-    # Save to root as well for backward compatibility
-    model.save("image_denoising_model.keras")
-
     print("\nTraining Complete!")
-    print(f"Model saved to: {model_dest_path} and image_denoising_model.keras")
+    print(f"Model saved to: {model_dest_path}")
 
     # Plot history
     plot_and_save_history(history, "outputs/training_history.png")

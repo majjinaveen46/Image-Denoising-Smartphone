@@ -63,22 +63,18 @@ def test_dataset_integrity():
 
 def test_saved_model():
     print("[5/5] Checking Saved Model Loading...")
-    model_paths = ["models/image_denoising_model.keras", "image_denoising_model.keras"]
-    loaded = False
-    for path in model_paths:
-        if os.path.exists(path):
-            model = tf.keras.models.load_model(
-                path,
-                custom_objects={"psnr_metric": psnr_metric, "ssim_metric": ssim_metric},
-                compile=False
-            )
-            dummy_input = np.zeros((1, 128, 128, 3), dtype=np.float32)
-            out = model.predict(dummy_input, verbose=0)
-            assert out.shape == (1, 128, 128, 3)
-            print(f"      [PASS] Saved model at '{path}' loaded and executed successfully.")
-            loaded = True
-            break
-    if not loaded:
+    model_path = "models/image_denoising_model.keras"
+    if os.path.exists(model_path):
+        model = tf.keras.models.load_model(
+            model_path,
+            custom_objects={"psnr_metric": psnr_metric, "ssim_metric": ssim_metric},
+            compile=False
+        )
+        dummy_input = np.zeros((1, 128, 128, 3), dtype=np.float32)
+        out = model.predict(dummy_input, verbose=0)
+        assert out.shape == (1, 128, 128, 3)
+        print(f"      [PASS] Saved model at '{model_path}' loaded and executed successfully.")
+    else:
         print("      [WARN] No saved model found yet. Run train.py to generate one.")
 
 
