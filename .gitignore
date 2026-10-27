@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Node & Frontend dependencies
+node_modules/
+frontend/node_modules/
+.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE & System
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Output cache
+outputs/*.png
+!outputs/comparison_plot.png
+
+# Dataset files - Keep only the 3 demo pairs for lightweight GitHub repository size (<25MB)
+# while allowing users to store full 100-pair dataset locally
+dataset/clean/*
+!dataset/clean/0001.png
+!dataset/clean/0002.png
+!dataset/clean/0005.png
+
+dataset/noisy/*
+!dataset/noisy/0001.png
+!dataset/noisy/0002.png
+!dataset/noisy/0005.png
+
+# Ensure model checkpoints are tracked
+!models/image_denoising_model.keras
