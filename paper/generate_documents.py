@@ -80,7 +80,7 @@ def create_word_document(docx_path: str):
     # Authors
     auth_p = doc.add_paragraph()
     auth_p.paragraph_format.space_after = Pt(2)
-    a1 = auth_p.add_run("NAVEEN MAJJI")
+    a1 = auth_p.add_run("MAJJI NAVEEN")
     a1.bold = True
     a1.font.name = "Arial"
     a1.font.size = Pt(10.5)
@@ -89,31 +89,39 @@ def create_word_document(docx_path: str):
     sup1.bold = True
     
     auth_p.add_run(", ")
-    a2 = auth_p.add_run("RESEARCH COLLABORATOR")
+    a2 = auth_p.add_run("PARRI HARI CHANDAN")
     a2.bold = True
     a2.font.name = "Arial"
     a2.font.size = Pt(10.5)
-    sup2 = auth_p.add_run("2")
+    sup2 = auth_p.add_run("1")
     sup2.font.superscript = True
     sup2.bold = True
     
-    auth_p.add_run(", AND ")
-    a3 = auth_p.add_run("FACULTY ADVISOR")
+    auth_p.add_run(", ")
+    a3 = auth_p.add_run("M. SIVA CHARAN REDDY")
     a3.bold = True
     a3.font.name = "Arial"
     a3.font.size = Pt(10.5)
-    sup3 = auth_p.add_run("3*")
+    sup3 = auth_p.add_run("1")
     sup3.font.superscript = True
     sup3.bold = True
+
+    auth_p.add_run(", AND ")
+    a4 = auth_p.add_run("JAYALAKSHMI M")
+    a4.bold = True
+    a4.font.name = "Arial"
+    a4.font.size = Pt(10.5)
+    sup4 = auth_p.add_run("1*")
+    sup4.font.superscript = True
+    sup4.bold = True
 
     # Affiliations
     aff_p = doc.add_paragraph()
     aff_p.paragraph_format.space_after = Pt(12)
     aff_run = aff_p.add_run(
-        "1 Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India\n"
-        "2 Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India\n"
-        "3 School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India\n"
-        "*Corresponding author: Naveen Majji (e-mail: naveen.majji@vit.ac.in)."
+        "1 School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, Tamil Nadu 632014, India\n"
+        "Emails: majji.naveen2023@gmail.com, harichandan.parri2023@vitstudent.ac.in, mareddy.siva2023@vitstudent.ac.in, m.jayalakshmi@vit.ac.in\n"
+        "*Under the Supervision of & Corresponding Author: Dr. Jayalakshmi M (Associate Professor, SCOPE, VIT Vellore, Email: m.jayalakshmi@vit.ac.in)."
     )
     aff_run.font.name = "Arial"
     aff_run.font.size = Pt(8.5)
@@ -420,9 +428,10 @@ def create_word_document(docx_path: str):
 
     # Author Biographies
     add_heading_1("AUTHOR BIOGRAPHIES")
-    add_body("NAVEEN MAJJI is currently pursuing a Bachelor of Technology degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India. His research interests encompass deep learning, computational photography, computer vision, and high-performance machine learning system deployment. Through his work on the NeuroClean project, he has pioneered hybrid neural architectures combining multi-scale contextual representations with deep residual noise estimation, alongside engineered windowed inference algorithms for high-resolution computational imaging.")
-    add_body("RESEARCH COLLABORATOR is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology, Vellore, India. Research interests include digital signal processing, convolutional neural networks, and web-based artificial intelligence deployment frameworks.")
-    add_body("FACULTY ADVISOR is a Senior Assistant Professor at the School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology, Vellore, India. With extensive academic and industrial research experience in artificial intelligence, digital image processing, and secure distributed computing, they have guided numerous capstone research initiatives and published extensively in indexed international journals and conferences.")
+    add_body("MAJJI NAVEEN is currently pursuing a Bachelor of Technology degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: majji.naveen2023@gmail.com). His research interests encompass deep learning, computational photography, computer vision, and high-performance machine learning system deployment. Through his work on the NeuroClean project, he has pioneered hybrid neural architectures combining multi-scale contextual representations with deep residual noise estimation, alongside engineered windowed inference algorithms for high-resolution computational imaging.")
+    add_body("PARRI HARI CHANDAN is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: harichandan.parri2023@vitstudent.ac.in). Research interests include digital signal processing, convolutional neural networks, and web-based artificial intelligence deployment frameworks.")
+    add_body("M. SIVA CHARAN REDDY is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: mareddy.siva2023@vitstudent.ac.in). Research interests include computer vision, neural image enhancement, and cloud-based machine learning systems.")
+    add_body("JAYALAKSHMI M is an Associate Professor at the School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, India (Email: m.jayalakshmi@vit.ac.in). With extensive academic and research experience in artificial intelligence, computer vision, digital image processing, and distributed machine learning systems, she has supervised numerous research initiatives and published extensively in indexed international journals and conferences.")
 
     doc.save(docx_path)
     print(f"[SUCCESS] Saved Word Document (.docx) to: {docx_path}")

@@ -334,14 +334,13 @@ def generate_pdf():
 
 <!-- Authors & Affiliations -->
 <div class="authors-line">
-  NAVEEN MAJJI<sup>1</sup>, RESEARCH COLLABORATOR<sup>2</sup>, AND FACULTY ADVISOR<sup>3*</sup>
+  MAJJI NAVEEN<sup>1</sup>, PARRI HARI CHANDAN<sup>1</sup>, M. SIVA CHARAN REDDY<sup>1</sup>, AND JAYALAKSHMI M<sup>1*</sup>
 </div>
 
 <div class="affiliations">
-  <sup>1</sup>Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India<br>
-  <sup>2</sup>Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India<br>
-  <sup>3</sup>School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India<br>
-  <span class="corresp">*Corresponding author: Naveen Majji (e-mail: naveen.majji@vit.ac.in).</span>
+  <sup>1</sup>School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, Tamil Nadu 632014, India<br>
+  <b>Author Emails:</b> majji.naveen2023@gmail.com, harichandan.parri2023@vitstudent.ac.in, mareddy.siva2023@vitstudent.ac.in, m.jayalakshmi@vit.ac.in<br>
+  <span class="corresp">*Under the Supervision of & Corresponding Author: Dr. Jayalakshmi M (Associate Professor, SCOPE, VIT Vellore, Email: m.jayalakshmi@vit.ac.in).</span>
 </div>
 
 <!-- Abstract Box -->
@@ -656,21 +655,28 @@ def generate_pdf():
   <div class="bio-card">
     <div class="bio-photo">PHOTO<br>1 in × 1.25 in</div>
     <div class="bio-text">
-      <span class="bio-name">NAVEEN MAJJI</span> is currently pursuing a Bachelor of Technology degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India. His research interests encompass deep learning, computational photography, computer vision, and high-performance machine learning system deployment. Through his work on the NeuroClean project, he has pioneered hybrid neural architectures combining multi-scale contextual representations with deep residual noise estimation, alongside engineered windowed inference algorithms for high-resolution computational imaging.
+      <span class="bio-name">MAJJI NAVEEN</span> is currently pursuing a Bachelor of Technology degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: majji.naveen2023@gmail.com). His research interests encompass deep learning, computational photography, computer vision, and high-performance machine learning system deployment. Through his work on the NeuroClean project, he has pioneered hybrid neural architectures combining multi-scale contextual representations with deep residual noise estimation, alongside engineered windowed inference algorithms for high-resolution computational imaging.
     </div>
   </div>
 
   <div class="bio-card">
     <div class="bio-photo">PHOTO<br>1 in × 1.25 in</div>
     <div class="bio-text">
-      <span class="bio-name">RESEARCH COLLABORATOR</span> is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology, Vellore, India. Research interests include digital signal processing, convolutional neural networks, and web-based artificial intelligence deployment frameworks.
+      <span class="bio-name">PARRI HARI CHANDAN</span> is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: harichandan.parri2023@vitstudent.ac.in). Research interests include digital signal processing, convolutional neural networks, and web-based artificial intelligence deployment frameworks.
     </div>
   </div>
 
   <div class="bio-card">
     <div class="bio-photo">PHOTO<br>1 in × 1.25 in</div>
     <div class="bio-text">
-      <span class="bio-name">FACULTY ADVISOR</span> is a Senior Assistant Professor at the School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology, Vellore, India. With extensive academic and industrial research experience in artificial intelligence, digital image processing, and secure distributed computing, they have guided numerous capstone research initiatives and published extensively in indexed international journals and conferences.
+      <span class="bio-name">M. SIVA CHARAN REDDY</span> is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: mareddy.siva2023@vitstudent.ac.in). Research interests include computer vision, neural image enhancement, and cloud-based machine learning systems.
+    </div>
+  </div>
+
+  <div class="bio-card">
+    <div class="bio-photo">PHOTO<br>1 in × 1.25 in</div>
+    <div class="bio-text">
+      <span class="bio-name">JAYALAKSHMI M</span> is an Associate Professor at the School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, India (Email: m.jayalakshmi@vit.ac.in). With extensive academic and research experience in artificial intelligence, computer vision, digital image processing, and distributed machine learning systems, she has supervised numerous research initiatives and published extensively in indexed international journals and conferences.
     </div>
   </div>
 

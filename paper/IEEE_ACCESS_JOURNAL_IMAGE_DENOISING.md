@@ -5,11 +5,10 @@
 
 ---
 
-**NAVEEN MAJJI**$^1$, **RESEARCH COLLABORATOR**$^2$, AND **FACULTY ADVISOR**$^3$*  
-$^1$Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India  
-$^2$Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India  
-$^3$School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India  
-*Corresponding author: Naveen Majji (e-mail: naveen.majji@vit.ac.in).
+**MAJJI NAVEEN**$^1$, **PARRI HARI CHANDAN**$^1$, **M. SIVA CHARAN REDDY**$^1$, AND **JAYALAKSHMI M**$^{1*}$  
+$^1$School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, Tamil Nadu 632014, India  
+*Under the Supervision of & Corresponding Author: Dr. Jayalakshmi M (Associate Professor, SCOPE, VIT Vellore, Email: m.jayalakshmi@vit.ac.in).  
+Author Emails: majji.naveen2023@gmail.com, harichandan.parri2023@vitstudent.ac.in, mareddy.siva2023@vitstudent.ac.in, m.jayalakshmi@vit.ac.in
 
 ---
 
@@ -517,8 +516,10 @@ The authors acknowledge the use of open-source deep learning and computer vision
 
 ## AUTHOR BIOGRAPHIES
 
-**NAVEEN MAJJI** is currently pursuing a Bachelor of Technology degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India. His research interests encompass deep learning, computational photography, computer vision, and high-performance machine learning system deployment. Through his work on the NeuroClean project, he has pioneered hybrid neural architectures combining multi-scale contextual representations with deep residual noise estimation, alongside engineered windowed inference algorithms for high-resolution computational imaging.
+**MAJJI NAVEEN** is currently pursuing a Bachelor of Technology degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: majji.naveen2023@gmail.com). His research interests encompass deep learning, computational photography, computer vision, and high-performance machine learning system deployment. Through his work on the NeuroClean project, he has pioneered hybrid neural architectures combining multi-scale contextual representations with deep residual noise estimation, alongside engineered windowed inference algorithms for high-resolution computational imaging.
 
-**RESEARCH COLLABORATOR** is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology, Vellore, India. Research interests include digital signal processing, convolutional neural networks, and web-based artificial intelligence deployment frameworks.
+**PARRI HARI CHANDAN** is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: harichandan.parri2023@vitstudent.ac.in). Research interests include digital signal processing, convolutional neural networks, and web-based artificial intelligence deployment frameworks.
 
-**FACULTY ADVISOR** is a Senior Assistant Professor at the School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology, Vellore, India. With extensive academic and industrial research experience in artificial intelligence, digital image processing, and secure distributed computing, they have guided numerous capstone research initiatives and published extensively in indexed international journals and conferences.
+**M. SIVA CHARAN REDDY** is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: mareddy.siva2023@vitstudent.ac.in). Research interests include computer vision, neural image enhancement, and cloud-based machine learning systems.
+
+**JAYALAKSHMI M** is an Associate Professor at the School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, India (Email: m.jayalakshmi@vit.ac.in). With extensive academic and research experience in artificial intelligence, computer vision, digital image processing, and distributed machine learning systems, she has supervised numerous research initiatives and published extensively in indexed international journals and conferences.

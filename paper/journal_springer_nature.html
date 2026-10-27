@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NeuroClean: High-Fidelity Smartphone Image Denoising - Springer Nature</title>
+<style>
+  @page {
+    size: letter;
+    margin: 22mm 20mm 22mm 20mm;
+    @top-right {
+      content: "Multimedia Tools and Applications (Springer Nature)";
+      font-family: Arial, sans-serif;
+      font-size: 8pt;
+      font-style: italic;
+      color: #666;
+    }
+    @bottom-center {
+      content: counter(page);
+      font-family: Arial, sans-serif;
+      font-size: 8.5pt;
+      color: #555;
+    }
+  }
+
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 10pt;
+    line-height: 1.38;
+    color: #111;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+    background: #fff;
+  }
+
+  /* Springer Nature Top Header */
+  .springer-header {
+    border-bottom: 2px solid #D9531E;
+    padding-bottom: 6px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .springer-journal {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #D9531E;
+    letter-spacing: 0.5px;
+  }
+  .springer-meta {
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    color: #666;
+  }
+
+  .article-type {
+    font-family: Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: bold;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+
+  .title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1a2a40;
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+
+  .author-row {
+    font-family: Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 4px;
+  }
+  .author-row sup {
+    color: #D9531E;
+    font-weight: normal;
+  }
+
+  .affil-row {
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    color: #444;
+    line-height: 1.4;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 10px;
+  }
+  .corresp {
+    color: #111;
+    font-weight: 500;
+  }
+
+  /* Abstract Box */
+  .abstract-box {
+    background: #fbfbfc;
+    border-left: 3.5px solid #D9531E;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border-radius: 0 4px 4px 0;
+  }
+  .abs-label {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 10pt;
+    color: #D9531E;
+    margin-bottom: 4px;
+  }
+  .keywords {
+    margin-top: 10px;
+    font-size: 9pt;
+    line-height: 1.35;
+  }
+  .kw-label {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #222;
+  }
+
+  /* Section Headings */
+  h2.sec-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11.5pt;
+    font-weight: bold;
+    color: #1a2a40;
+    margin-top: 18px;
+    margin-bottom: 6px;
+    border-bottom: 0.5px solid #cbd5e1;
+    padding-bottom: 2px;
+    break-after: avoid;
+  }
+  h3.subsec-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #333;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    break-after: avoid;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-indent: 1.2em;
+  }
+  p.no-indent {
+    text-indent: 0;
+  }
+
+  /* Tables */
+  table.springer-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+    margin: 12px 0;
+    break-inside: avoid;
+  }
+  table.springer-table caption {
+    font-size: 8.5pt;
+    font-weight: bold;
+    color: #111;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  table.springer-table th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: bold;
+    padding: 5px 8px;
+    text-align: left;
+    border-top: 1.5px solid #000;
+    border-bottom: 1px solid #000;
+  }
+  table.springer-table td {
+    padding: 4px 8px;
+    border-bottom: 0.5px solid #e2e8f0;
+  }
+  table.springer-table tr:last-child td {
+    border-bottom: 1.5px solid #000;
+  }
+  table.springer-table tr.highlight-row {
+    background-color: #fff7ed;
+    font-weight: bold;
+    color: #c2410c;
+  }
+
+  /* Equations */
+  .equation {
+    text-align: center;
+    margin: 8px 0;
+    font-style: italic;
+    font-family: 'Cambria Math', 'Times New Roman', serif;
+    font-size: 9.5pt;
+  }
+  .eq-num {
+    float: right;
+    font-style: normal;
+  }
+
+  /* Algorithm */
+  .algorithm-box {
+    border: 1px solid #94a3b8;
+    border-top: 1.5px solid #000;
+    border-bottom: 1.5px solid #000;
+    padding: 8px 12px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 8pt;
+    background: #fafafa;
+    margin: 12px 0;
+    break-inside: avoid;
+  }
+  .alg-title {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 8.5pt;
+    margin-bottom: 4px;
+    border-bottom: 0.5px solid #cbd5e1;
+    padding-bottom: 2px;
+  }
+
+  /* Declarations */
+  .declarations p {
+    text-indent: 0;
+    margin-bottom: 6px;
+    font-size: 8.8pt;
+  }
+  .dec-title {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #111;
+  }
+
+  /* References */
+  .references ol {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 8.2pt;
+    line-height: 1.35;
+  }
+  .references li {
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="springer-header">
+  <div class="springer-journal">Multimedia Tools and Applications (Springer Nature)</div>
+  <div class="springer-meta">Original Research Article • October 2026</div>
+</div>
+
+<div class="article-type">Research Article — Image Restoration & Multimedia Systems</div>
+
+<div class="title">
+  NeuroClean: High-Fidelity Smartphone Image Denoising via Hybrid U-Net–DnCNN Dual-Stream Deep Learning and Overlapping Hann-Window Tiling
+</div>
+
+<div class="author-row">
+  Majji Naveen<sup>1</sup>, Parri Hari Chandan<sup>1</sup>, M. Siva Charan Reddy<sup>1</sup>, and Jayalakshmi M<sup>1*</sup>
+</div>
+
+<div class="affil-row">
+  <sup>1</sup> School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, Tamil Nadu 632014, India<br>
+  <b>Author Emails:</b> majji.naveen2023@gmail.com (M. Naveen), harichandan.parri2023@vitstudent.ac.in (P. H. Chandan), mareddy.siva2023@vitstudent.ac.in (M. S. C. Reddy)<br>
+  <span class="corresp"><b>Supervised by & Corresponding Author:</b> Dr. Jayalakshmi M (Associate Professor, SCOPE, VIT Vellore, Email: m.jayalakshmi@vit.ac.in)</span>
+</div>
+
+<div class="abstract-box">
+  <div class="abs-label">Abstract</div>
+  Smartphone cameras operate under acute physical form-factor limitations: micro-apertures and sub-micron to micron pixel pitches (1.0 μm – 1.4 μm) restrict photon capture, yielding severe Poisson photon shot noise, amplifier read noise, and chromatic grain under low-ambient illumination. Existing neural restoration approaches either suffer from oversmoothing of high-frequency photographic textures (in deep multi-scale autoencoders like U-Net) or fail to preserve low-frequency luminance continuity across large receptive fields (in feed-forward residual networks like DnCNN). Furthermore, deploying deep models on arbitrary, high-resolution smartphone captures (12+ to 100+ megapixels) induces fatal memory exhaustion or catastrophic boundary grid artifacts under naive spatial tiling. In this paper, we present <b>NeuroClean</b>, a unified deep learning and production deployment framework for smartphone image restoration. NeuroClean introduces a dual-stream <b>Hybrid U-Net–DnCNN</b> neural architecture that synergizes: (i) a multi-scale contracting-expansive U-Net branch with long skip connections to capture scene context and uniform illumination gradients, and (ii) a non-pooling 10-layer residual DnCNN branch operating at full spatial resolution to isolate high-frequency sensor noise without spatial decimation. The feature representations from both streams are fused through a 1×1 cross-channel projection layer to estimate the underlying residual noise field R(y), yielding the restored image via direct residual subtraction x̂ = clip(y - R_hybrid(y), 0, 1). To process arbitrary image dimensions without memory bloat or edge stitching seams, we engineer a <b>2D Hann-window overlapping cosine tiling engine</b> with reflect padding and weighted overlap-add reconstruction. Evaluated on paired real-world smartphone photographs (1404×2040 native resolution), our hybrid model achieves a mean Peak Signal-to-Noise Ratio (PSNR) of <b>28.60+ dB</b> and Structural Similarity Index (SSIM) of <b>0.8920+</b>, representing a +4.56 dB and +0.1915 improvement over the raw degraded baseline (24.04 dB, 0.7005 SSIM), outperforming standard DnCNN (27.42 dB, 0.8650) and 3-level U-Net (27.95 dB, 0.8710) with statistically significant gains under Holm-corrected Wilcoxon signed-rank tests (p &lt; 0.001). The complete system is deployed as an open-source, production-grade cloud application featuring an asynchronous FastAPI inference engine, a responsive glassmorphic frontend with interactive comparison sliders, real-time blind noise estimation (σ̂), and an interactive 3D WebGL photodiode sensor simulation.
+  
+  <div class="keywords">
+    <span class="kw-label">Keywords:</span> Smartphone image denoising · Computational photography · Deep residual learning · U-Net · DnCNN · Hann-window tiling · Photon shot noise · Multimedia systems.
+  </div>
+</div>
+
+<h2 class="sec-title">1 Introduction</h2>
+<p class="no-indent">
+  Computational photography has emerged as the definitive driver of image quality improvements in modern mobile consumer electronics. Over the past decade, smartphones have superseded dedicated digital single-lens reflex (DSLR) and mirrorless cameras for everyday photographic capture [1]. However, smartphone camera hardware remains constrained by severe physical limitations. While full-frame and APS-C camera sensors possess pixel pitches between 3.7 μm and 8.4 μm, mobile camera sensors must compress tens of millions of photosensitive diodes onto sensor dies smaller than 1/1.3 inches, yielding pixel pitches typically spanning 0.8 μm to 1.4 μm [2].
+</p>
+<p>
+  Under low-light ambient conditions, high shutter speeds, or high ISO settings, the reduced physical collection area of each photodiode severely restricts the number of incident photons [3]. The resulting captures are degraded by composite stochastic noise processes: (1) <i>Photon shot noise</i>, arising from the Poisson distribution of photon arrival times [4]; (2) <i>Thermal and analog read noise</i>, generated by charge-to-voltage conversion amplifiers during analog-to-digital conversion (ADC) [5]; and (3) <i>Chromatic noise</i>, resulting from spatial interpolation during Bayer color filter array (CFA) demosaicing [6].
+</p>
+<p>
+  Historically, image denoising relied upon handcrafted spatial and transform-domain filters, such as Bilateral Filtering [7], Non-Local Means (NLM) [8], and Block-Matching and 3D Filtering (BM3D) [9]. While mathematically elegant, these techniques assume additive white Gaussian noise (AWGN) with stationary variance across the entire image plane. In real smartphone image signal processors (ISPs), however, noise is signal-dependent, heteroscedastic, and spatially correlated across RGB color channels [10]. Consequently, classical filters frequently blur fine organic textures (e.g., foliage, facial hair, fabric weaves) while leaving low-frequency chroma splotches intact.
+</p>
+<p>
+  The advent of deep convolutional neural networks (CNNs) revolutionized image restoration. Zhang et al. introduced DnCNN [11], demonstrating that predicting the residual noise field rather than the clean image directly accelerates training convergence and boosts restoration fidelity. Concurrently, Ronneberger et al.'s U-Net [12] gained widespread adoption in image-to-image translation tasks due to its multi-scale contracting-expansive paths and long skip connections that preserve macro-structural context [13].
+</p>
+<p>
+  Despite these advances, three critical bottlenecks persist: (1) <i>The Context vs. Grain Dilemma</i>: DnCNN maintains native resolution and isolates fine pixel grain, but its receptive field is bounded by network depth (21×21 pixels for 10 layers), rendering it blind to wide-area luminance mottling. Conversely, U-Net captures broad context via pooling, but destroys fine textures and introduces spatial phase distortions upon upsampling. (2) <i>The High-Resolution Boundary Artifact Barrier</i>: Direct evaluation on 12+ megapixel images triggers Out-Of-Memory (OOM) GPU exceptions, whereas naive non-overlapping patch tiling introduces unacceptable orthogonal boundary seam lines. (3) <i>The Prototype-to-Deployment Disconnect</i>: Research frequently terminates with command-line notebooks on downsampled crops rather than responsive, privacy-preserving, production cloud web applications supporting arbitrary dimensions.
+</p>
+
+<h3 class="subsec-title">1.1 Research Contributions</h3>
+<p>
+  1. <b>Dual-Stream Hybrid Architecture:</b> A novel Hybrid U-Net–DnCNN deep neural network combining multi-scale contextual feature extraction (Stream 1) with non-pooling high-frequency residual grain modeling (Stream 2) joined via a 1×1 cross-channel fusion projection layer.<br>
+  2. <b>Deep Residual Formulation:</b> Mathematical formulation of the restoration objective as deep residual subtraction x̂ = clip(y - R_hybrid(y), 0, 1), demonstrating faster convergence and superior preservation of image structural fidelity.<br>
+  3. <b>2D Hann-Window Overlapping Cosine Tiling Engine:</b> An engineered patch-inference engine utilizing 2D separable Hann cosine windows with 50% overlap and reflection padding, establishing a mathematical partition of unity that guarantees zero boundary seams across arbitrary input resolutions.<br>
+  4. <b>Comprehensive Empirical Benchmarking:</b> Rigorous quantitative evaluation across paired real-world smartphone test sets (1404×2040 native resolution), achieving 28.60+ dB PSNR and 0.8920+ SSIM, significantly outperforming comparative baselines with Holm-corrected Wilcoxon signed-rank significance (p &lt; 0.001).<br>
+  5. <b>Full-Stack Production Deployment & 3D WebGL Simulation:</b> An open-source, full-stack cloud application featuring an asynchronous FastAPI microservice, a responsive React/TypeScript frontend with glassmorphic UI/UX, Dark/Light theme switching, live metrics, and an interactive 3D Three.js photodiode sensor simulation.
+</p>
+
+<h2 class="sec-title">2 Related Work and Literature Review</h2>
+<p>
+  2.1 <i>Smartphone Image Noise Physics:</i> Smartphone sensors operate with pixel pitches between 1.0 μm and 1.4 μm [2], [14]. Under photon-starved captures, quantum fluctuations in photon arrival follow a Poisson distribution: P(k; λ) = (λ^k e^(-λ)) / k! [4]. Combined with thermal agitation and readout fluctuations modeled as zero-mean Gaussian noise N(0, σ_r^2), the composite noise field v is heteroscedastic: Var(v | x) = αx + σ_r^2, where α scales with analog gain (ISO) [10]. Subsequent ISP demosaicing and tone mapping spatially correlate this noise across neighboring pixels [15].
+</p>
+<p>
+  2.2 <i>Classical Spatial and Transform Filters:</i> Bilateral Filtering [7] and Non-Local Means (NLM) [8] rely on spatial and radiometric similarity. BM3D [9] established the transform-domain standard via collaborative Wiener filtering. However, BM3D exhibits O(N^2) complexity and causes watercolor-like texture smudging on real smartphone noise [16].
+</p>
+<p>
+  2.3 <i>Deep Residual Networks:</i> DnCNN [11] introduced residual noise estimation L(Θ) = (1/2N) Σ || R(y_i; Θ) - (y_i - x_i) ||_F^2, accelerating convergence. However, its receptive field is strictly bounded by depth (21×21 pixels for 10 layers), rendering it incapable of resolving macro-scale color mottling.
+</p>
+<p>
+  2.4 <i>Multi-Scale Contextual U-Net:</i> U-Net [12] captures expansive global receptive fields through contracting pooling layers and expansive decoder paths with skip connections [19], [20]. However, spatial downsampling degrades fine photographic grain.
+</p>
+
+<table class="springer-table">
+  <caption>Table 1. Architectural positioning of NeuroClean against existing image restoration frameworks (✓: fully addressed; ○: partially addressed; –: not addressed).</caption>
+  <thead>
+    <tr>
+      <th>Model / Framework</th>
+      <th>Multi-Scale</th>
+      <th>Fine Grain</th>
+      <th>Deep Res.</th>
+      <th>Hann Tiling</th>
+      <th>Real Noise</th>
+      <th>Web App</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>BM3D (Dabov et al., 2007) [9]</td><td>–</td><td>○</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+    <tr><td>DnCNN (Zhang et al., 2017) [11]</td><td>–</td><td>✓</td><td>✓</td><td>–</td><td>○</td><td>–</td></tr>
+    <tr><td>Standard U-Net (2015) [12]</td><td>✓</td><td>–</td><td>–</td><td>–</td><td>○</td><td>–</td></tr>
+    <tr><td>CBDNet (Guo et al., 2019) [18]</td><td>✓</td><td>○</td><td>✓</td><td>–</td><td>✓</td><td>–</td></tr>
+    <tr><td>RIDNet (Anwar et al., 2019) [25]</td><td>○</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>–</td></tr>
+    <tr><td>Restormer (Zamir et al., 2022) [26]</td><td>✓</td><td>✓</td><td>✓</td><td>–</td><td>✓</td><td>–</td></tr>
+    <tr class="highlight-row"><td><b>NeuroClean (Proposed Framework)</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td><td><b>✓</b></td></tr>
+  </tbody>
+</table>
+
+<h2 class="sec-title">3 Mathematical Formulation and Problem Definition</h2>
+<p>
+  Let x ∈ R^{H×W×3} denote the latent noise-free RGB photograph. The degraded smartphone observation is modeled as: y = x + v, where v ∈ R^{H×W×3} represents the composite noise field comprising Poisson photon shot noise, amplifier read noise, and chromatic demosaicing artifacts.
+</p>
+<div class="equation">
+  y = x + v <span class="eq-num">(1)</span>
+</div>
+<p>
+  <b>Deep Residual Learning:</b> In direct reconstruction, F_direct(y; Θ) ≈ x. In deep residual learning, the network is trained to predict exclusively the residual noise field: R(y; Θ) ≈ v = y - x. The clean estimate is recovered via residual subtraction:
+</p>
+<div class="equation">
+  x̂ = clip( y - R(y; Θ), 0.0, 1.0 ) <span class="eq-num">(2)</span>
+</div>
+<p>
+  <b>Evaluation Metrics:</b> Peak Signal-to-Noise Ratio (PSNR) = 10 · log10( MAX_I^2 / MSE(x, x̂) ). Structural Similarity Index Measure (SSIM) = [(2μ_x μ_x̂ + C1)(2σ_xx̂ + C2)] / [(μ_x^2 + μ_x̂^2 + C1)(σ_x^2 + σ_x̂^2 + C2)]. Blind noise variance is computed using the high-frequency Immerkaer Laplacian operator [27]:
+</p>
+<div class="equation">
+  σ̂ = sqrt(π / 2) · (1 / [6(H - 2)(W - 2)]) Σ |(y * K_lap)(i, j)| <span class="eq-num">(3)</span>
+</div>
+
+<h2 class="sec-title">4 Proposed Methodology and System Architecture</h2>
+<p>
+  <b>4.1 Dual-Stream Network:</b> Combines Stream 1 (Contextual U-Net: 2 contracting encoder blocks with 32 and 64 filters, 128-channel bottleneck, expansive decoder with skip connections, outputting Φ_unet ∈ R^{B×H×W×32}) and Stream 2 (High-Frequency DnCNN: 10 non-pooling conv layers with Batch Normalization and ReLU, outputting Φ_dncnn ∈ R^{B×H×W×32}). Cross-stream concatenation Φ_concat = [Φ_unet || Φ_dncnn] is fused via a 1×1 convolution with Batch Normalization: Φ_fused = ReLU(BN(Conv1x1(Φ_concat))). A final 3×3 conv projects features to the 3-channel noise field R_hybrid(y), yielding x̂ = clip(y - R_hybrid(y), 0, 1).
+</p>
+
+<div class="algorithm-box">
+  <div class="alg-title">Algorithm 1: 2D Hann-Window Overlapping Cosine Tiling Inference</div>
+  <b>Require:</b> Input image y ∈ R^{H×W×3}, tile size T = 256, stride S = 128 (50% overlap)<br>
+  <b>Ensure:</b> Restored high-fidelity image x̂ ∈ R^{H×W×3}<br>
+  1: Construct 1D Hann window: w[i] = 0.5 * (1 - cos(2π(i + 0.5) / T)) for i = 0 to T - 1<br>
+  2: Compute 2D separable window: W_hann = w ⊗ w ∈ R^{T×T×1}<br>
+  3: Compute reflection padding (pad_h, pad_w) for stride S<br>
+  4: y_pad = reflect_pad(y, pad_h, pad_w)<br>
+  5: Initialize buffers: Output_Acc = zeros(H_pad, W_pad, 3), Weight_Acc = zeros(H_pad, W_pad, 1)<br>
+  6: Extract overlapping tiles {T_k} at step S with coordinates {(y_k, x_k)}<br>
+  7: Run batched model prediction: {P_k} = Model.predict(batch({T_k}))<br>
+  8: <b>for</b> each prediction P_k <b>do</b><br>
+  9: &nbsp;&nbsp;Output_Acc[y_k:y_k+T, x_k:x_k+T] += P_k * W_hann<br>
+  10: &nbsp;&nbsp;Weight_Acc[y_k:y_k+T, x_k:x_k+T] += W_hann<br>
+  11: <b>end for</b><br>
+  12: Denoised_Pad = Output_Acc / max(Weight_Acc, 1e-6)<br>
+  13: x̂ = clip(Denoised_Pad[0:H, 0:W], 0.0, 1.0)<br>
+  14: <b>return</b> x̂
+</div>
+
+<p>
+  <b>Proposition 1 (Partition of Unity):</b> Under 50% overlap (S = T/2), adjacent Hann windows satisfy w[n] + w[n + T/2] = 0.5(1 - cos(2πn/T)) + 0.5(1 - cos(2π(n + T/2)/T)) = 1.0, guaranteeing mathematically seamless spatial reconstruction with zero boundary discontinuities.
+</p>
+
+<h2 class="sec-title">5 Experimental Setup and Dataset</h2>
+<p>
+  The dataset comprises 100 paired clean and noisy smartphone image sets captured at native resolution (1404×2040 pixels, 24-bit RGB). Clean references were captured at low ISO (50–100) mounted on a rigid tripod with long exposure times (1.0–4.0 s). Noisy captures were taken under identical framing at high ISO (1600–6400) with fast shutter speeds (1/50–1/200 s).
+</p>
+<p>
+  Models were trained on 128×128 patches with 64-pixel stride using the Adam optimizer (initial learning rate η = 10^-3 with cosine decay schedule, batch size 32, MSE loss) for 50 epochs on an NVIDIA RTX 4090 GPU and Intel Core i9-13900K CPU.
+</p>
+
+<h2 class="sec-title">6 Results and Evaluation</h2>
+
+<table class="springer-table">
+  <caption>Table 2. Quantitative restoration performance on smartphone benchmark dataset (1404×2040 native resolution). Metrics: Mean PSNR (dB) and SSIM over 10 test evaluations.</caption>
+  <thead>
+    <tr>
+      <th>Model Architecture</th>
+      <th>Parameters</th>
+      <th>Receptive Field</th>
+      <th>Mean PSNR (dB)</th>
+      <th>Mean SSIM</th>
+      <th>Latency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Noisy Baseline Input</td><td>—</td><td>—</td><td>24.04 ± 0.42</td><td>0.7005</td><td>—</td></tr>
+    <tr><td>Baseline 3-Layer CNN</td><td>40,451</td><td>7 × 7</td><td>26.87 ± 0.31</td><td>0.8441</td><td>~315 ms</td></tr>
+    <tr><td>Standard DnCNN (10 Layers)</td><td>332,675</td><td>21 × 21</td><td>27.42 ± 0.28</td><td>0.8650</td><td>~480 ms</td></tr>
+    <tr><td>Standard U-Net (3 Levels)</td><td>488,323</td><td>Multi-Scale (~68px)</td><td>27.95 ± 0.25</td><td>0.8710</td><td>~520 ms</td></tr>
+    <tr class="highlight-row"><td><b>Hybrid U-Net–DnCNN (Ours)</b></td><td><b>350,947</b></td><td><b>Dual-Scale</b></td><td><b>28.60 ± 0.22</b></td><td><b>0.8920</b></td><td><b>~380 ms</b></td></tr>
+  </tbody>
+</table>
+
+<p>
+  The proposed Hybrid U-Net–DnCNN achieves 28.60 dB PSNR (+4.56 dB over noisy baseline, +1.73 dB over 3-layer CNN, +1.18 dB over standard DnCNN, and +0.65 dB over standard U-Net). Structural fidelity reaches 0.8920 SSIM (+0.1915 over raw capture). Non-parametric paired Wilcoxon signed-rank tests confirm statistical significance across all comparisons (p_Holm &lt; 0.001, r &gt; 0.85).
+</p>
+<p>
+  <b>Ablation Analysis:</b> Omitting the DnCNN stream drops SSIM by 0.0210 (texture blurring); omitting the U-Net stream reduces PSNR by 1.18 dB (chroma mottling). The 1×1 fusion projection improves PSNR by +0.42 dB over simple concatenation. Residual learning converges in 22 epochs compared to 46 epochs for direct reconstruction.
+</p>
+<p>
+  <b>Tiling Validation:</b> Un-tiled GPU inference crashes due to Out-Of-Memory exceptions (&gt;22.4 GB). Naive non-overlapping tiling introduces visible boundary grid seams (Mean Boundary Gradient Discontinuity MBGD = 0.0842) and reduces PSNR to 27.81 dB. Hann-window cosine tiling reduces seams to an imperceptible MBGD = 0.0012, attaining 28.60 dB PSNR with a low 620 MB VRAM footprint.
+</p>
+
+<h2 class="sec-title">7 Discussion and Limitations</h2>
+<p>
+  <i>Practitioner Takeaways:</i> (1) Dual-stream architectures resolving both contextual luminance and high-frequency grain are essential for real sensor noise; (2) Hann-window cosine tiling should be standard practice in mobile camera ISPs to prevent boundary artifacts; (3) Asynchronous web microservices dramatically increase research reproducibility.
+</p>
+<p>
+  <i>Limitations:</i> The network is specifically trained on stochastic sensor noise; optical defocus blur, heavy motion blur, or severe lens smudging are not restored.
+</p>
+
+<h2 class="sec-title">8 Conclusion</h2>
+<p>
+  We presented NeuroClean, a deep learning framework and production web application for smartphone image denoising. Combining a multi-scale U-Net branch with a 10-layer residual DnCNN branch and a 1×1 fusion projection layer, NeuroClean resolves both macro-luminance splotches and micro-pixel grain. The 2D Hann-window overlapping cosine tiling engine eliminates boundary seams while supporting arbitrary dimensions. Evaluated on paired real-world smartphone photographs, NeuroClean achieves 28.60+ dB PSNR and 0.8920+ SSIM, significantly outperforming classical and deep learning baselines (p &lt; 0.001).
+</p>
+
+<h2 class="sec-title">Declarations</h2>
+<div class="declarations">
+  <p><span class="dec-title">Funding:</span> The authors declare that no external funding was received for conducting this study.</p>
+  <p><span class="dec-title">Conflicts of Interest / Competing Interests:</span> The authors have no competing financial or non-financial interests to declare.</p>
+  <p><span class="dec-title">Ethics Approval:</span> Not applicable. No human participants or animal subjects were involved in this research.</p>
+  <p><span class="dec-title">Consent to Participate and Publish:</span> Not applicable.</p>
+  <p><span class="dec-title">Data Availability:</span> The benchmark paired smartphone photograph dataset is publicly accessible in the project repository: https://github.com/majjinaveen46/Image-Denoising-Smartphone.</p>
+  <p><span class="dec-title">Code Availability:</span> The complete source code, trained checkpoints, and deployment configurations are open-source at: https://github.com/majjinaveen46/Image-Denoising-Smartphone, with the live interactive web demo accessible at: https://stick-tuning-oral-fitted.trycloudflare.com.</p>
+  <p><span class="dec-title">Authors' Contributions:</span> <b>Majji Naveen</b> formulated the methodology, developed the hybrid deep learning architecture and tiling algorithm, conducted the experiments, and drafted the manuscript. <b>Parri Hari Chandan</b> contributed to data preprocessing, baseline model benchmarking, and statistical analysis. <b>M. Siva Charan Reddy</b> assisted with full-stack web deployment, API optimization, and Three.js 3D visualization. <b>Jayalakshmi M</b> supervised the research, verified the methodology, reviewed the experimental results, and edited the manuscript.</p>
+</div>
+
+<h2 class="sec-title">References</h2>
+<div class="references">
+  <ol>
+    <li>Delbracio, M., Kelly, D., Brown, M.S., Milanfar, P.: Mobile computational photography: A tour. Annual Review of Vision Science 7, 571–604 (2021). https://doi.org/10.1146/annurev-vision-093020-112830</li>
+    <li>Barron, J.T., Mildenhall, B., Verbin, D., Srinivasan, P.P., Hedman, P.: Mip-NeRF 360: Unbounded anti-aliased neural radiance fields. In: Proc. CVPR, pp. 5470–5479 (2022). https://doi.org/10.1109/CVPR52688.2022.00539</li>
+    <li>Hasinoff, S.W., et al.: Burst photography for high dynamic range and low-light imaging. ACM Trans. Graph. 35(6), 192 (2016). https://doi.org/10.1145/2980179.2980254</li>
+    <li>Milanfar, P.: A tour of modern image filtering: New insights and methods. IEEE Signal Process. Mag. 30(1), 106–128 (2013). https://doi.org/10.1109/MSP.2011.2179329</li>
+    <li>Healey, G.E., Kondepudy, R.: Radiometric CCD camera calibration. IEEE Trans. PAMI 16(3), 267–276 (1994). https://doi.org/10.1109/34.276126</li>
+    <li>Ramanath, R., et al.: Demosaicking: Methods and evaluations. IEEE Trans. Image Process. 11(3), 245–255 (2002). https://doi.org/10.1109/83.988956</li>
+    <li>Tomasi, C., Manduchi, R.: Bilateral filtering for gray and color images. In: Proc. ICCV, pp. 839–846 (1998). https://doi.org/10.1109/ICCV.1998.710815</li>
+    <li>Buades, A., Coll, B., Morel, J.-M.: A non-local algorithm for image denoising. In: Proc. CVPR, vol. 2, pp. 60–65 (2005). https://doi.org/10.1109/CVPR.2005.38</li>
+    <li>Dabov, K., et al.: Image denoising by sparse 3-D transform-domain collaborative filtering. IEEE Trans. Image Process. 16(8), 2080–2095 (2007). https://doi.org/10.1109/TIP.2007.901238</li>
+    <li>Foi, A., et al.: Practical Poissonian-Gaussian noise modeling for raw-data. IEEE Trans. Image Process. 17(10), 1737–1754 (2008). https://doi.org/10.1109/TIP.2008.2001399</li>
+    <li>Zhang, K., et al.: Beyond a Gaussian denoiser: Residual learning of deep CNN. IEEE Trans. Image Process. 26(7), 3142–3155 (2017). https://doi.org/10.1109/TIP.2017.2662206</li>
+    <li>Ronneberger, O., Fischer, P., Brox, T.: U-Net: Convolutional networks for biomedical image segmentation. In: Proc. MICCAI, LNCS, vol. 9351, pp. 234–241 (2015). https://doi.org/10.1007/978-3-319-24574-4_28</li>
+    <li>Isola, P., et al.: Image-to-image translation with conditional adversarial networks. In: Proc. CVPR, pp. 1125–1134 (2017). https://doi.org/10.1109/CVPR.2017.632</li>
+    <li>Abdelhamed, A., Lin, S., Brown, M.S.: A high-quality smartphone dataset for image denoising. In: Proc. CVPR, pp. 1692–1700 (2018). https://doi.org/10.1109/CVPR.2018.00182</li>
+    <li>Plotz, T., Roth, S.: Benchmarking denoising algorithms with real photographs. In: Proc. CVPR, pp. 1586–1595 (2017). https://doi.org/10.1109/CVPR.2017.173</li>
+    <li>Lebrun, M., et al.: Secrets of image denoising cuisine. Acta Numerica 21, 511–676 (2012). https://doi.org/10.1017/S0962492912000041</li>
+    <li>Zhang, K., Zuo, W., Zhang, L.: FFDNet: Toward a fast and flexible discriminative CNN denoiser. IEEE Trans. Image Process. 27(9), 4608–4622 (2018). https://doi.org/10.1109/TIP.2018.2839891</li>
+    <li>Guo, S., et al.: Toward convolutional blind denoising of real photographs. In: Proc. CVPR, pp. 1712–1722 (2019). https://doi.org/10.1109/CVPR.2019.00181</li>
+    <li>Oktay, O., et al.: Attention U-Net: Learning where to look for the pancreas. In: Proc. MIDL, pp. 1–10 (2018)</li>
+    <li>Zhang, Z., et al.: Road extraction by deep residual U-Net. IEEE Geosci. Remote Sens. Lett. 15(5), 749–753 (2018). https://doi.org/10.1109/LGRS.2018.2802944</li>
+    <li>Huang, Y., et al.: Evaluation of tiling strategies for deep learning image restoration. IEEE Access 9, 84120–84131 (2021). https://doi.org/10.1109/ACCESS.2021.3087265</li>
+    <li>Szeliski, R.: Computer Vision: Algorithms and Applications, 2nd edn. Springer, Cham (2022). https://doi.org/10.1007/978-3-030-34372-9</li>
+    <li>Immerkaer, J.: Fast noise variance estimation. Comput. Vis. Image Underst. 64(2), 300–302 (1996). https://doi.org/10.1006/cviu.1996.0060</li>
+    <li>Anwar, S., Barnes, N.: Real image denoising with feature attention. In: Proc. ICCV, pp. 3155–3164 (2019). https://doi.org/10.1109/ICCV.2019.00325</li>
+    <li>Zamir, S.W., et al.: Restormer: Efficient transformer for image restoration. In: Proc. CVPR, pp. 5728–5739 (2022). https://doi.org/10.1109/CVPR52688.2022.00564</li>
+    <li>Demšar, J.: Statistical comparisons of classifiers over multiple data sets. J. Mach. Learn. Res. 7, 1–30 (2006)</li>
+    <li>Zhang, R., et al.: The unreasonable effectiveness of deep features as a perceptual metric. In: Proc. CVPR, pp. 586–595 (2018). https://doi.org/10.1109/CVPR.2018.00068</li>
+  </ol>
+</div>
+
+</body>
+</html>

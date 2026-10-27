@@ -18,20 +18,19 @@
 
 \title{NeuroClean: High-Fidelity Smartphone Image Denoising via Hybrid U-Net--DnCNN Dual-Stream Deep Learning and Overlapping Hann-Window Tiling}
 
-\author{\uppercase{Naveen Majji}\authorrefmark{1},
-\uppercase{Research Collaborator}\authorrefmark{2},
-\uppercase{and Faculty Advisor}\authorrefmark{3}, \IEEEmembership{Senior Member, IEEE}}
+\author{\uppercase{Majji Naveen}\authorrefmark{1},
+\uppercase{Parri Hari Chandan}\authorrefmark{1},
+\uppercase{M. Siva Charan Reddy}\authorrefmark{1},
+\uppercase{and Jayalakshmi M}\authorrefmark{1*}, \IEEEmembership{Senior Member, IEEE}}
 
-\address[1]{Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India}
-\address[2]{Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India}
-\address[3]{School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology, Vellore, Tamil Nadu 632014, India}
-\tfootnote{This work was supported in part by the Department of Computer Science and Engineering, Vellore Institute of Technology, Vellore.}
+\address[1]{School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, Tamil Nadu 632014, India}
+\tfootnote{This work was supervised by Dr. Jayalakshmi M at the School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology, Vellore.}
 
 \markboth
-{Majji \headeretal: NeuroClean: High-Fidelity Smartphone Image Denoising via Hybrid U-Net--DnCNN}
-{Majji \headeretal: NeuroClean: High-Fidelity Smartphone Image Denoising via Hybrid U-Net--DnCNN}
+{Naveen \headeretal: NeuroClean: High-Fidelity Smartphone Image Denoising via Hybrid U-Net--DnCNN}
+{Naveen \headeretal: NeuroClean: High-Fidelity Smartphone Image Denoising via Hybrid U-Net--DnCNN}
 
-\corresp{Corresponding author: Naveen Majji (e-mail: naveen.majji@vit.ac.in).}
+\corresp{Corresponding author: Jayalakshmi M (e-mail: m.jayalakshmi@vit.ac.in).}
 
 \begin{abstract}
 Smartphone cameras operate under acute physical form-factor limitations: micro-apertures and sub-micron to micron pixel pitches ($1.0\,\mu\text{m} - 1.4\,\mu\text{m}$) restrict photon capture, yielding severe Poisson photon shot noise, amplifier read noise, and chromatic grain under low-ambient illumination. Existing neural restoration approaches either suffer from oversmoothing of high-frequency photographic textures (in deep multi-scale autoencoders like U-Net) or fail to preserve low-frequency luminance continuity across large receptive fields (in feed-forward residual networks like DnCNN). Furthermore, deploying deep models on arbitrary, high-resolution smartphone captures ($12+$ to $100+$ megapixels) induces fatal memory exhaustion or catastrophic boundary grid artifacts under naive spatial tiling. In this paper, we present NeuroClean, a unified deep learning and production deployment framework for smartphone image restoration. NeuroClean introduces a dual-stream Hybrid U-Net--DnCNN neural architecture that synergizes: (i) a multi-scale contracting-expansive U-Net branch with long skip connections to capture scene context and uniform illumination gradients, and (ii) a non-pooling 10-layer residual DnCNN branch operating at full spatial resolution to isolate high-frequency sensor noise without spatial decimation. The feature representations from both streams are fused through a $1 \times 1$ cross-channel projection layer to estimate the underlying residual noise field $\mathcal{R}(y)$, yielding the restored image via direct residual subtraction $\hat{x} = \text{clip}(y - \mathcal{R}_{\text{hybrid}}(y), 0, 1)$. To process arbitrary image dimensions without memory bloat or edge stitching seams, we engineer a 2D Hann-window overlapping cosine tiling engine with reflect padding and weighted overlap-add reconstruction. Evaluated on paired real-world smartphone photographs ($1404 \times 2040$ native resolution), our hybrid model achieves a mean Peak Signal-to-Noise Ratio (PSNR) of $28.60+\,\text{dB}$ and Structural Similarity Index (SSIM) of $0.8920+$, representing a $+4.56\,\text{dB}$ and $+0.1915$ improvement over the raw degraded baseline ($24.04\,\text{dB}$, $0.7005$ SSIM), outperforming standard DnCNN ($27.42\,\text{dB}$, $0.8650$) and 3-level U-Net ($27.95\,\text{dB}$, $0.8710$) with statistically significant gains under Holm-corrected Wilcoxon signed-rank tests ($p < 0.001$). The complete system is deployed as an open-source, production-grade cloud application featuring an asynchronous FastAPI inference engine, a responsive glassmorphic frontend with interactive comparison sliders, real-time blind noise estimation ($\hat{\sigma}$), and an interactive 3D WebGL photodiode sensor simulation.
@@ -367,7 +366,16 @@ The software, trained checkpoints, and web deployment code are available on GitH
 \bibitem{immerkaer1996fast} J. Immerkaer, ``Fast noise variance estimation,'' \textit{Comput. Vis. Image Underst.}, vol. 64, no. 2, pp. 300--302, 1996.
 \end{thebibliography}
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{author1.png}}]{Naveen Majji} is currently pursuing a Bachelor of Technology degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India. His research interests encompass deep learning, computational photography, computer vision, and high-performance machine learning system deployment. Through his work on the NeuroClean project, he has pioneered hybrid neural architectures combining multi-scale contextual representations with deep residual noise estimation, alongside engineered windowed inference algorithms for high-resolution computational imaging.
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{author1.png}}]{Majji Naveen} is currently pursuing a Bachelor of Technology degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: majji.naveen2023@gmail.com). His research interests encompass deep learning, computational photography, computer vision, and high-performance machine learning system deployment. Through his work on the NeuroClean project, he has pioneered hybrid neural architectures combining multi-scale contextual representations with deep residual noise estimation, alongside engineered windowed inference algorithms for high-resolution computational imaging.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{author2.png}}]{Parri Hari Chandan} is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: harichandan.parri2023@vitstudent.ac.in). Research interests include digital signal processing, convolutional neural networks, and web-based artificial intelligence deployment frameworks.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{author3.png}}]{M. Siva Charan Reddy} is currently pursuing a B.Tech. degree in Computer Science and Engineering at Vellore Institute of Technology (VIT), Vellore, India (Email: mareddy.siva2023@vitstudent.ac.in). Research interests include computer vision, neural image enhancement, and cloud-based machine learning systems.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{author4.png}}]{Jayalakshmi M} is an Associate Professor at the School of Computer Science and Engineering (SCOPE), Vellore Institute of Technology (VIT), Vellore, India (Email: m.jayalakshmi@vit.ac.in). With extensive academic and research experience in artificial intelligence, computer vision, digital image processing, and distributed machine learning systems, she has supervised numerous research initiatives and published extensively in indexed international journals and conferences.
 \end{IEEEbiography}
 
 \EOD
