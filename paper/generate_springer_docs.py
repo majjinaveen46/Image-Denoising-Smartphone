@@ -412,7 +412,7 @@ def generate_springer_word_manuscript(docx_path: str):
     add_p("Ethics Approval: Not applicable. No human participants or animal subjects were involved.")
     add_p("Consent to Participate and Publish: Not applicable.")
     add_p("Data Availability: The dataset of paired smartphone photographs is available in the project repository: https://github.com/majjinaveen46/Image-Denoising-Smartphone.")
-    add_p("Code Availability: The complete source code, trained checkpoints, and deployment configurations are open-source at: https://github.com/majjinaveen46/Image-Denoising-Smartphone, with the live interactive web demo accessible at: https://levy-interstate-parcel-bennett.trycloudflare.com.")
+    add_p("Code Availability: The complete source code, trained checkpoints, and deployment configurations are open-source at: https://github.com/majjinaveen46/Image-Denoising-Smartphone, with the live interactive web demo accessible at: https://majjinaveen46.github.io/Image-Denoising-Smartphone/.")
     add_p("Authors' Contributions: Majji Naveen formulated the methodology, developed the hybrid deep learning architecture and tiling algorithm, conducted the experiments, and drafted the manuscript. Parri Hari Chandan contributed to data preprocessing, baseline model benchmarking, and statistical analysis. M. Siva Charan Reddy assisted with full-stack web deployment, API optimization, and Three.js 3D visualization. Jayalakshmi M supervised the research, verified the methodology, reviewed the experimental results, and edited the manuscript.")
 
     # References

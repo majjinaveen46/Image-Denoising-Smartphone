@@ -686,7 +686,7 @@ def build_presentation():
 
             p2_b = tf.add_paragraph()
             p2_b.text = (
-                "• Live Public URL: https://levy-interstate-parcel-bennett.trycloudflare.com\n"
+                "• Live Public URL: https://majjinaveen46.github.io/Image-Denoising-Smartphone/\n"
                 "• Deployed with FastAPI asynchronous backend, React glassmorphic UI, live noise metrics, and 3D WebGL sensor visualizer."
             )
             p2_b.font.name = "Arial"

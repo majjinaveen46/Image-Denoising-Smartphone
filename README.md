@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Cloudflare%20Hosted-2563eb?style=for-the-badge&logo=cloudflare&logoColor=white)](https://levy-interstate-parcel-bennett.trycloudflare.com)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2563eb?style=for-the-badge&logo=githubpages&logoColor=white)](https://majjinaveen46.github.io/Image-Denoising-Smartphone/)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/majjinaveen46/Image-Denoising-Smartphone)
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -11,7 +11,7 @@
 
 **A full-stack deep learning application engineered to restore high-ISO and low-light smartphone photographs using a dual-stream Hybrid U-Net–DnCNN neural network with seamless Hann-window tiling.**
 
-[🌐 Open Live Web App](https://levy-interstate-parcel-bennett.trycloudflare.com) • [🐙 GitHub Source Code](https://github.com/majjinaveen46/Image-Denoising-Smartphone) • [📖 Deployment Guide](DEPLOYMENT.md)
+[🌐 Open Live Web App](https://majjinaveen46.github.io/Image-Denoising-Smartphone/) • [🐙 GitHub Source Code](https://github.com/majjinaveen46/Image-Denoising-Smartphone) • [📖 Deployment Guide](DEPLOYMENT.md)
 
 </div>
 
