@@ -472,7 +472,7 @@ Future work will focus on:
 ## DATA AND CODE AVAILABILITY
 The complete software codebase, trained model checkpoints, evaluation scripts, and deployment configurations are publicly available under the open-source MIT License on GitHub:  
 **Repository:** [https://github.com/majjinaveen46/Image-Denoising-Smartphone](https://github.com/majjinaveen46/Image-Denoising-Smartphone)  
-**Live Application:** [https://stick-tuning-oral-fitted.trycloudflare.com](https://stick-tuning-oral-fitted.trycloudflare.com)
+**Live Application:** [https://levy-interstate-parcel-bennett.trycloudflare.com](https://levy-interstate-parcel-bennett.trycloudflare.com)
 
 ---
 

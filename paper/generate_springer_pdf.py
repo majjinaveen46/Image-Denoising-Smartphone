@@ -463,7 +463,7 @@ def generate_springer_pdf():
   <p><span class="dec-title">Ethics Approval:</span> Not applicable. No human participants or animal subjects were involved in this research.</p>
   <p><span class="dec-title">Consent to Participate and Publish:</span> Not applicable.</p>
   <p><span class="dec-title">Data Availability:</span> The benchmark paired smartphone photograph dataset is publicly accessible in the project repository: https://github.com/majjinaveen46/Image-Denoising-Smartphone.</p>
-  <p><span class="dec-title">Code Availability:</span> The complete source code, trained checkpoints, and deployment configurations are open-source at: https://github.com/majjinaveen46/Image-Denoising-Smartphone, with the live interactive web demo accessible at: https://stick-tuning-oral-fitted.trycloudflare.com.</p>
+  <p><span class="dec-title">Code Availability:</span> The complete source code, trained checkpoints, and deployment configurations are open-source at: https://github.com/majjinaveen46/Image-Denoising-Smartphone, with the live interactive web demo accessible at: https://levy-interstate-parcel-bennett.trycloudflare.com.</p>
   <p><span class="dec-title">Authors' Contributions:</span> <b>Majji Naveen</b> formulated the methodology, developed the hybrid deep learning architecture and tiling algorithm, conducted the experiments, and drafted the manuscript. <b>Parri Hari Chandan</b> contributed to data preprocessing, baseline model benchmarking, and statistical analysis. <b>M. Siva Charan Reddy</b> assisted with full-stack web deployment, API optimization, and Three.js 3D visualization. <b>Jayalakshmi M</b> supervised the research, verified the methodology, reviewed the experimental results, and edited the manuscript.</p>
 </div>
 
